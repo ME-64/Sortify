@@ -1,2 +1,6 @@
 venv/
 .idea/
+.cache*
+*.json
+__pycache__/
+.ipynb_checkpoints/
