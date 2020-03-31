@@ -1,0 +1,68 @@
+========HOME============
+- Description: 
+Spotify Auto-Playlist will group your unstructured, messy library into a smaller, managable playlists based on common themes between songs
+in just 3 clicks!
+- CTA: 
+"Click below to login to your spotify account"
+- Security:
+"Note you will be redirected to Spotify's secure login page, your credientials are not shared with this service"
+
+- Information Section:
+How does this service work?
+Spotify Auto-Playlist looks at the songs you selected, and groups them into clusters based upon:
+speed, tempo, noisiness, BPM, and other factors. You can either specify how many playlists you'd like to create
+or let the service work it out for you.
+
+- Contact / About / Other:
+Click here to view source code
+Click here to email creator
+Coffeee?
+
+========AUTHORISED========
+- Title:
+Welcome, <Milo>. Select your playlists below that you'd like to include for sort-ifying!
+Note: We never touch or delete your existing playlists, only create new playlists when you explicitly click "CREATE MY LIST!"
+
+- Dropdown:
+Multi-Select:
+  - My library, x many songs
+  - Other playlists (filtered for > 20 songs?)
+
+- Split Options:
+- I'd like to split the songs into X playlists
+- You pick the best number of playlists to split into!
+
+- RUN MAGIC
+- Loading, X, fun messaages ETC
+
+
+========RESULTS============
+- Title:
+And the results are in!
+
+- Fun analytic message:
+You seem to like lots of X
+
+Results:
+We've split your XXX songs into X playlists:
+
+Playlist by Playlist:
+- Best Name (how do we generate this?)
+- Key Attributes, i.e. "High Tempo", "Positive Energy"
+- Song - Artist - Album Cover - Play Preview Button
+- Selet this playlist
+
+SAVE Selected Playlists
+
+
+========DONE===========
+Title:
+And we're done!
+
+Your playlists have been saved and can be accessed with the following links:
+<playlist name> <playlist link>
+
+If you enjoyed this service then X, Y
+
+Alternatively, click here to run again with different songs!
+
