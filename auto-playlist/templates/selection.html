@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w3-container">
+<div class="w3-container w3-round-large w3-margin-top w3-light-gray w3-card">
+    <h2>Playlist Selection</h2>
+    <p>Welcome, {{ user }}. Select your playlists to include below:</p>
+
+</div>
+    <div class="w3-display-container w3-round-large w3-margin-top w3-light-gray w3-card">
+        <p>Test</p>
+ <div class="w3-card-4 w3-display-middle" style="width:90%;max-width:300px;">
+
+     <img src="" alt="avatar" style="width:100%;max-width:200px">
+     <div class="w3-container">
+         <h4><b>Song Name</b></h4>
+         <p>Number of tracks</p>
+
+     </div>
+
+</div>
+</div>
+
+{% endblock %}
+<!-- {% for playlist in playlists %}
+    <li class="w3-bar">
+        <span onclick="this.parentElement.style.display='none'"
+              class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span>
+        <img src="" class="w3-bar-item w3-circle" style="width:85px">
+        <div class="w3-bar-item">
+            <span class="w3-large">Mike</span><br>
+            <span>Web Designer</span>
+        </div>
+
+    </li>
+
+       <ul class="w3-ul w3-hoverable">
+            <li class="w3-bar">
+                <span onclick="this.parentElement.style.display='none'"
+                      class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span>
+                <img src="" class="w3-bar-item w3-circle" style="width:64px">
+                <div class="w3-bar-item">
+                    <span class="w3-large">Your Saved Music Library</span><br>
+                    <span>{{ library_tracks }} tracks</span>
+                </div>
+            </li>
+            {% for playlist in playlists %}
+            <li class="w3-bar w3-padding-large w3-margin">
+                <input class="w3-check w3-large w3-left" type="checkbox" id="{{ playlist['playlist_uri'] }}">
+
+                <img src="{{ playlist['img'] }}" class="w3-bar-item w3-circle">
+                <div class="w3-bar-item">
+                    <span class="w3-large">{{ playlist['name'] }}</span><br>
+                    <span>{{ playlist['tracks'] }} tracks</span>
+                </div>
+            </li>
+            {% endfor %}
+
+        </ul>
+
+
+<p>Name: {{ playlist['name'] }} Tracks: {{ playlist['tracks'] }}</p>
+
+{% endfor %} -->

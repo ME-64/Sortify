@@ -1,2 +1,5 @@
+click
+oauthlib
+requests
 flask
 spotipy

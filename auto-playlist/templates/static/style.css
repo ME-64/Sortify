@@ -1,0 +1,50 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1. 'Roboto', sans-serif;
+  color: #777;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  position: relative;
+  opacity: 0.65;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bgimg-1 {
+  background-image: url("background.jpg");
+  height: 100%;
+}
+
+.caption {
+  position: relative;
+  top:20px;
+  width: 100%;
+  text-align: center;
+}
+
+.caption.main {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.caption span.border {
+  background-color: rgba(17, 17, 17, 1);
+  color: #fff;
+  padding: 18px;
+  font-size: 30px;
+  letter-spacing: 4px;
+  opacity: 1;
+}
+
+.caption span.secondary {
+  color: white;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+}

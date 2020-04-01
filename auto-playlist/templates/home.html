@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+<!-- Modal -->
+
+
+
+
+    <div class="caption main">
+        <span class="border w3-round-large">Spotify Auto Playlist</span><br>
+        <div class="caption">
+            <span class="secondary">Organise your music collection in just 5 clicks</span>
+            <br>
+            <br>
+            <div class="w3-padding-30">
+                <button class="w3-btn w3-xlarge w3-green w3-hover-light-grey w3-round" onclick="document.getElementById('id01').style.display='block'" style="font-weight:400;position:relative;top:200;">Get Started <b>></b></button>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    Testing putting text here, lets see how it ends up working out
+</p>
+
+
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-fade w3-display-middle">
+        <header class="w3-display-container w3-green" style="padding-top:1px;padding-bottom:1px;">
+        <span onclick="document.getElementById('id01').style.display='none'"
+              class="w3-button w3-display-right w3-center w3-tiny" ><p style="font-size:24px;padding:0;margin:0;">×</p></span>
+            <h4 style="padding-left:10px;">Login with Spotify</h4>
+        </header>
+        <div class="w3-padding">
+            <p>To begin analysing your library and playlists, you'll need to login first.</p>
+            <p>You will be redirected to https://www.spotify.com to login with your account.</p>
+        </div>
+        <footer class="w3-container w3-theme-l1">
+            <div class="w3-container w3-center">
+                <button class="w3-btn w3-large w3-green w3-hover-light-grey w3-round" onclick="window.location.href= '{{ url_for('login') }}'">Let's Go!</button>
+            </div>
+            <br>
+        </footer>
+    </div>
+
+{% endblock %}
+<!-- <i class="fa fa-spotify w3-xlarge" aria-hidden="true" style="vertical-align:baseline;"></i> -->

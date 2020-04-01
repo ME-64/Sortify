@@ -1,68 +1,96 @@
-from requests_oauthlib import OAuth2Session
-from flask import Flask, request, redirect, session, url_for
+from flask import Flask, request, redirect, session, url_for, render_template
 from flask.json import jsonify
+import json
+import sqlite3
 import os
+import spotipy
+import functions
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user,
+)
+from oauthlib.oauth2 import WebApplicationClient
+import requests
+import sys
 
-app = Flask(__name__)
+CLIENT_ID = 'b962565806ca4496996ae576320a957f'
+CLIENT_SECRET = '1d61927e4edc401e91fa6b350c089c7b'
+SCOPE = 'user-library-read playlist-read-private playlist-modify-private'
+USERNAME = '1120649038'
+REDIRECT_URI = 'http://127.0.0.1:5000/callback'
+AUTH_BASE_URI = 'https://accounts.spotify.com/authorize'
+TOKEN_URI = 'https://accounts.spotify.com/api/token'
+USER_API = 'https://api.spotify.com/v1/me'
 
-client_id = 'b962565806ca4496996ae576320a957f'
-client_secret = '1d61927e4edc401e91fa6b350c089c7b'
-scope = 'user-read-email'
-authorization_base_url = 'https://api.spotify.com/v1/authorize'
-token_url = 'https://api.spotify.com/v1/api/token'
+# app setup
+app = Flask(__name__, static_folder='templates/static/')
+
+# client setup
+client = WebApplicationClient(client_id=CLIENT_ID)
+
 
 @app.route("/")
-def demo():
-    """Step 1: User Authorization.
-
-    Redirect the user/resource owner to the OAuth provider (i.e. Github)
-    using an URL with a few key OAuth parameters.
-    """
-    spotify = OAuth2Session(client_id, scope=scope)
-    authorization_url, state = spotify.authorization_url(authorization_base_url, {'client_id':
-        client_id, 'client_secret': client_secret})
-
-    # State is used to prevent CSRF, keep this for later.
-    session['oauth_state'] = state
-    return redirect(authorization_url)
+def index():
+    return render_template('home.html')
 
 
-# Step 2: User authorization, this happens on the provider.
+@app.route("/login")
+def login():
+    # Find out what URL to hit for Google login
 
-@app.route("/callback", methods=["GET"])
+    request_uri = client.prepare_request_uri(
+        AUTH_BASE_URI,
+        redirect_uri=request.base_url + "/callback",
+        scope=SCOPE,
+        show_dialog=True
+    )
+    return redirect(request_uri)
+
+
+@app.route("/login/callback")
 def callback():
-    """ Step 3: Retrieving an access token.
+    # Get authorization code Google sent back to you
+    code = request.args.get("code")
+    # Prepare and send a request to get tokens! Yay tokens!
+    token_url, headers, body = client.prepare_token_request(
+        TOKEN_URI,
+        authorization_response=request.url,
+        redirect_url=request.base_url,
+        code=code
+    )
 
-    The user has been redirected back from the provider to your registered
-    callback URL. With this redirection comes an authorization code included
-    in the redirect URL. We will use that to obtain an access token.
-    """
+    token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(CLIENT_ID, CLIENT_SECRET),
+    )
 
-    spotify = OAuth2Session(client_id, state=session['oauth_state'])
-    token = spotify.fetch_token(token_url, client_secret=client_secret,
-                               authorization_response=request.url)
+    # Parse the tokens!
+    client.parse_request_body_response(json.dumps(token_response.json()))
 
-    # At this point you can fetch protected resources but lets save
-    # the token and show how this is done from a persisted token
-    # in /profile.
-    session['oauth_token'] = token
+    session['token'] = client.token
 
-    return redirect(url_for('.profile'))
+    return redirect(url_for('selection'))
 
 
-@app.route("/profile", methods=["GET"])
-def profile():
-    """Fetching a protected resource using an OAuth 2 token.
-    """
-    spotify = OAuth2Session(client_id, token=session['oauth_token'])
-    return jsonify(spotify.get('https://api.github.com/user').json())
+@app.route('/selection')
+def selection():
+    sp = spotipy.Spotify(auth=session['token']['access_token'])
+    print(client.token, flush=True)
+    playlists = functions.get_user_playlists(sp)
+    playlists = playlists[0:5]
+    user = 'milo'
+    library_tracks = 231
+    return render_template('selection.html', playlists=playlists, user=user, library_tracks=library_tracks)
+
+
 
 
 if __name__ == "__main__":
-    # This allows us to use a plain HTTP callback
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
-
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     app.secret_key = os.urandom(24)
     app.run(debug=True)
-
-
