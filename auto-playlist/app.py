@@ -77,16 +77,41 @@ def callback():
     return redirect(url_for('selection'))
 
 
-@app.route('/selection')
+@app.route('/selection', methods=['GET'])
 def selection():
     sp = spotipy.Spotify(auth=session['token']['access_token'])
-    print(client.token, flush=True)
     playlists = functions.get_user_playlists(sp)
     playlists = playlists[0:5]
+    for playlist in playlists:
+        if len(playlist['name']) >40:
+            playlist['name'] = playlist['name'][0:37] + '...'
+
+    playlists = [playlist for playlist in playlists if playlist['tracks'] > 0]
+        
+
     user = 'milo'
     library_tracks = 231
     return render_template('selection.html', playlists=playlists, user=user, library_tracks=library_tracks)
 
+
+@app.route('/results', methods=['GET', 'POST'])
+def results():
+    if request.method == 'POST':
+        checks = request.form.getlist('checks')
+        session['checks'] = checks.copy()
+
+    sp = spotipy.Spotify(auth=session['token']['access_token']) 
+
+    tracks = []
+
+    library = functions.get_playlist_tracks('library', sp)
+    tracks.extend(library)
+
+    for playlist in checks:
+        tmp = functions.get_playlist_tracks(playlist, sp)
+        tracks.extend(tmp)
+
+    return jsonify(tracks)
 
 
 

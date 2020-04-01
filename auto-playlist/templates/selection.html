@@ -1,63 +1,59 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
-<div class="w3-container">
-<div class="w3-container w3-round-large w3-margin-top w3-light-gray w3-card">
-    <h2>Playlist Selection</h2>
-    <p>Welcome, {{ user }}. Select your playlists to include below:</p>
-
-</div>
-    <div class="w3-display-container w3-round-large w3-margin-top w3-light-gray w3-card">
-        <p>Test</p>
- <div class="w3-card-4 w3-display-middle" style="width:90%;max-width:300px;">
-
-     <img src="" alt="avatar" style="width:100%;max-width:200px">
-     <div class="w3-container">
-         <h4><b>Song Name</b></h4>
-         <p>Number of tracks</p>
-
-     </div>
-
-</div>
+<div class="m-header">
+    <span>Spotify Auto-Playlist: <b>Music Selection</b></span>
 </div>
 
-{% endblock %}
-<!-- {% for playlist in playlists %}
-    <li class="w3-bar">
-        <span onclick="this.parentElement.style.display='none'"
-              class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span>
-        <img src="" class="w3-bar-item w3-circle" style="width:85px">
-        <div class="w3-bar-item">
-            <span class="w3-large">Mike</span><br>
-            <span>Web Designer</span>
+
+<div class="w3-container w3-margin-top w3-auto" style="margin: 0 auto;">
+<div class="w3-cell-row w3-margin-top" style="display: inline-block;">
+
+    <div class="w3-cell w3-container w3-responsive w3-half w3-margin-bottom" style="max-width: 500px;">
+        <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
+            <b>Welcome Milo</b> <br> 
+            You're now logged in and we can begin sort-ifying your music collection. <br> <br>
+            We're automatically including your saved spotify songs, but you can also add some
+            of your own playlists. We've picked a few you might like. <br> <br>
+            Once you've made your selection, click go and we'll do the rest! <br> <br>
+
+            <div class="w3-center">
+                <button class="w3-button w3-large w3-round-large w3-green" 
+                        type="submit" form="form1" formaction="{{ url_for('results') }}">
+                        Sort-ify my music!</button>
+            </div>
+            
         </div>
 
-    </li>
-
-       <ul class="w3-ul w3-hoverable">
-            <li class="w3-bar">
-                <span onclick="this.parentElement.style.display='none'"
-                      class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span>
-                <img src="" class="w3-bar-item w3-circle" style="width:64px">
-                <div class="w3-bar-item">
-                    <span class="w3-large">Your Saved Music Library</span><br>
-                    <span>{{ library_tracks }} tracks</span>
-                </div>
-            </li>
-            {% for playlist in playlists %}
-            <li class="w3-bar w3-padding-large w3-margin">
-                <input class="w3-check w3-large w3-left" type="checkbox" id="{{ playlist['playlist_uri'] }}">
-
-                <img src="{{ playlist['img'] }}" class="w3-bar-item w3-circle">
-                <div class="w3-bar-item">
-                    <span class="w3-large">{{ playlist['name'] }}</span><br>
-                    <span>{{ playlist['tracks'] }} tracks</span>
-                </div>
-            </li>
-            {% endfor %}
-
-        </ul>
+    </div>
 
 
-<p>Name: {{ playlist['name'] }} Tracks: {{ playlist['tracks'] }}</p>
+    <div class="w3-cell w3-container w3-responsive w3-half w3-round-xlarge" style="max-width: 500px;">
+        <ul class="w3-ul w3-card-4 w3-light-gray w3-round-xlarge">
+                <form method="POST" id="form1">
+                {% for playlist in playlists %}
+                <li class="w3-center w3-display-container">
+                    
+                        <input name="checks" type="checkbox" value="{{ playlist['playlist_uri'] }}" id="{{ playlist['playlist_uri'] }}" class="w3-check w3-display-left w3-margin-left" checked>
+                    
+                    <img src="{{ playlist['img'] }}" class="w3-round-large" style="width:80px;height:80px;margin-top:10px;"/>
+                    <div>
+                        <span class="w3-medium">
+                            <b>{{ playlist['name'] }}</b> <br></span>
+                            <span>{{ playlist['tracks'] }} songs</span>
+                        
+                    </div>
+                </li>
+                {% endfor %}      
+                </form>
+            </ul>
+    </div>
+</div>
 
-{% endfor %} -->
+
+
+
+
+
+
+</div>
+{% endblock %}
