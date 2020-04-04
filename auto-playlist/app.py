@@ -1,23 +1,19 @@
-from flask import Flask, request, redirect, session, url_for, render_template
-from flask.json import jsonify
 import json
-import sqlite3
 import os
-import spotipy
-import functions
-from flask_login import (
-    LoginManager,
-    current_user,
-    login_required,
-    login_user,
-    logout_user,
-)
-from oauthlib.oauth2 import WebApplicationClient
-import requests
+import sqlite3
 import sys
 
-CLIENT_ID = 'b962565806ca4496996ae576320a957f'
-CLIENT_SECRET = '1d61927e4edc401e91fa6b350c089c7b'
+import requests
+import spotipy
+from flask import Flask, redirect, render_template, request, session, url_for
+from flask.json import jsonify
+from oauthlib.oauth2 import WebApplicationClient
+
+import functions2
+import analysis
+
+CLIENT_ID = os.environ['spotipy_client_id']
+CLIENT_SECRET = os.environ['spotipy_client_secret']
 SCOPE = 'user-library-read playlist-read-private playlist-modify-private'
 USERNAME = '1120649038'
 REDIRECT_URI = 'http://127.0.0.1:5000/callback'
@@ -80,7 +76,7 @@ def callback():
 @app.route('/selection', methods=['GET'])
 def selection():
     sp = spotipy.Spotify(auth=session['token']['access_token'])
-    playlists = functions.get_user_playlists(sp)
+    playlists = functions2.get_user_playlists(sp)
     playlists = playlists[0:5]
     for playlist in playlists:
         if len(playlist['name']) >40:
@@ -89,9 +85,13 @@ def selection():
     playlists = [playlist for playlist in playlists if playlist['tracks'] > 0]
         
 
-    user = 'milo'
+    details = functions2.get_user_information(sp)
+
+    user = details['name']
+    img = details['image']
+
     library_tracks = 231
-    return render_template('selection.html', playlists=playlists, user=user, library_tracks=library_tracks)
+    return render_template('selection.html', playlists=playlists, user=user, library_tracks=library_tracks, img=img)
 
 
 @app.route('/results', methods=['GET', 'POST'])
@@ -100,18 +100,27 @@ def results():
         checks = request.form.getlist('checks')
         session['checks'] = checks.copy()
 
-    sp = spotipy.Spotify(auth=session['token']['access_token']) 
+        sp = spotipy.Spotify(auth=session['token']['access_token']) 
 
-    tracks = []
+        tracks = []
 
-    library = functions.get_playlist_tracks('library', sp)
-    tracks.extend(library)
+        library = functions2.get_all_track_features_from_playlists('library', sp)
+        tracks.extend(library)
 
-    for playlist in checks:
-        tmp = functions.get_playlist_tracks(playlist, sp)
-        tracks.extend(tmp)
+        if len(checks) > 0:
+            tmp = functions2.get_all_track_features_from_playlists(checks, sp)
+            tracks.extend(tmp)
 
-    return jsonify(tracks)
+        clean_tracks = analysis.clean_track_features(tracks)
+        clustered_tracks = analysis.cluster_songs(clean_tracks)
+        analysis.plot_clusters(clustered_tracks)
+
+        no_clusters = clustered_tracks['cluster'].nunique()
+
+        ai_playlists = analysis.get_ai_playlists(clustered_tracks)
+
+
+    return render_template('results.html', no_clusters=no_clusters, ai_playlists=ai_playlists)
 
 
 

@@ -3,3 +3,5 @@ oauthlib
 requests
 flask
 spotipy
+pandas
+numpy

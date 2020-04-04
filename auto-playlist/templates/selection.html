@@ -10,12 +10,15 @@
 
     <div class="w3-cell w3-container w3-responsive w3-half w3-margin-bottom" style="max-width: 500px;">
         <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
-            <b>Welcome Milo</b> <br> 
+            {% if img %}
+                <img src="{{ img }}" alt ="User Profile Image" style="width: 80px;height:80px" class="w3-round-large w3-center"/>
+                <br>
+            {% endif %}
+            <b>{{ user }}</b> <br> 
             You're now logged in and we can begin sort-ifying your music collection. <br> <br>
             We're automatically including your saved spotify songs, but you can also add some
             of your own playlists. We've picked a few you might like. <br> <br>
             Once you've made your selection, click go and we'll do the rest! <br> <br>
-
             <div class="w3-center">
                 <button class="w3-button w3-large w3-round-large w3-green" 
                         type="submit" form="form1" formaction="{{ url_for('results') }}">
@@ -47,13 +50,8 @@
                 </form>
             </ul>
     </div>
+
+    
 </div>
-
-
-
-
-
-
-
 </div>
 {% endblock %}

@@ -47,8 +47,7 @@ def get_playlist_tracks(playlist_id, spotify_object):
                'album_uri': song['track']['album']['uri'],
                'album_type': song['track']['album']['album_type'],
                'album_name': song['track']['album']['name'],
-               'album_total_tracks': song['track']['album']['total_tracks'],
-               'img': song['track']['album']['images'][0]['url'],
+               'img': song['track']['album']['images'][0]['url'] if len(song['track']['album']['images']) > 0 else None,
                'track_name': song['track']['name'],
                'release_date': song['track']['album']['release_date'],
                'release_date_precision': song['track']['album']['release_date_precision'],
@@ -58,6 +57,11 @@ def get_playlist_tracks(playlist_id, spotify_object):
                'artist_name': song['track']['artists'][0]['name'],
                'artist_uri': song['track']['artists'][0]['uri'],
                }
+        try:
+            tmp['album_total_tracks'] = song['track']['album']['total_tracks']
+        except:
+            tmp['album_total_tracks'] = 1
+        
         tracks.append(tmp)
 
     while result['next']:
@@ -67,8 +71,7 @@ def get_playlist_tracks(playlist_id, spotify_object):
                    'album_uri': song['track']['album']['uri'],
                    'album_type': song['track']['album']['album_type'],
                    'album_name': song['track']['album']['name'],
-                   'album_total_tracks': song['track']['album']['total_tracks'],
-                   'img': song['track']['album']['images'][0]['url'],
+                   'img': song['track']['album']['images'][0]['url'] if len(song['track']['album']['images']) > 0 else None,
                    'track_name': song['track']['name'],
                    'release_date': song['track']['album']['release_date'],
                    'release_date_precision': song['track']['album']['release_date_precision'],
@@ -78,7 +81,14 @@ def get_playlist_tracks(playlist_id, spotify_object):
                    'artist_name': song['track']['artists'][0]['name'],
                    'artist_uri': song['track']['artists'][0]['uri'],
                    }
+            try:
+                tmp['album_total_tracks'] = song['track']['album']['total_tracks']
+            except:
+                tmp['album_total_tracks'] = 1
+            
             tracks.append(tmp)
+            
+    tracks = [track for track in tracks if track['track_uri'][8:13] not in ['local', 'episo']]
 
     # --------------------
     # Getting audio analysis for each track
@@ -89,27 +99,29 @@ def get_playlist_tracks(playlist_id, spotify_object):
 
     for i in range(0, loops):
         audio_features = spotify_object.audio_features(track_ids[i * 50:(i * 50) + 50])
-
         for features in audio_features:
-            del features['track_href']
-            del features['analysis_url']
-            del features['type']
-            del features['id']
-            del features['duration_ms']
-            features['an_track_uri'] = features.pop('uri')
-            tracks[j].update(features)
-            j += 1
-
-    audio_features = spotify_object.audio_features(track_ids[loops * 50:])
-    for features in audio_features:
-        del features['track_href']
-        del features['analysis_url']
-        del features['type']
-        del features['id']
-        del features['duration_ms']
-        features['an_track_uri'] = features.pop('uri')
-        tracks[j].update(features)
-        j += 1
+            if j != len(track_ids):
+                features.pop('track_href', None)
+                features.pop('analysis_url', None)
+                features.pop('type', None)
+                features.pop('id', None)
+                features.pop('duration_ms', None)
+                features['an_track_uri'] = features.pop('uri')
+                tracks[j].update(features)
+                j += 1
+                
+    if j-1 != len(track_ids):
+        audio_features = spotify_object.audio_features(track_ids[j:])
+        for features in audio_features:
+            if j != len(track_ids):
+                features.pop('track_href', None)
+                features.pop('analysis_url', None)
+                features.pop('type', None)
+                features.pop('id', None)
+                features.pop('duration_ms', None)
+                features['an_track_uri'] = features.pop('uri')
+                tracks[j].update(features)
+                j += 1
 
     # -------------
     # Getting Album information for each track
@@ -117,21 +129,25 @@ def get_playlist_tracks(playlist_id, spotify_object):
     loops = int(len(album_ids) / 20)
     j = 0
     for i in range(0, loops):
-        album_features = spotify_object.albums(album_ids[i * 20:(i * 20) + 20])
-        for features in album_features['albums']:
-            tmp = {'album_genres': features['genres'],
-                   'album_popularity': features['popularity'],
-                   'an_album_uri': features['uri']}
-            tracks[j].update(tmp)
-            j += 1
+        if j != len(album_ids):
+            album_features = spotify_object.albums(album_ids[i * 20:(i * 20) + 20])
+            for features in album_features['albums']:
+                if j != len(album_ids):
+                    tmp = {'album_genres': features['genres'],
+                           'album_popularity': features['popularity'],
+                           'an_album_uri': features['uri']}
+                    tracks[j].update(tmp)
+                    j += 1
 
-    album_features = spotify_object.albums(album_ids[loops * 20:])
-    for features in album_features['albums']:
-        tmp = {'album_genres': features['genres'],
-               'album_popularity': features['popularity'],
-               'an_album_uri': features['uri']}
-        tracks[j].update(tmp)
-        j += 1
+    if j-1 != len(album_ids):
+        album_features = spotify_object.albums(album_ids[j:])
+        for features in album_features['albums']:
+            if j != len(album_ids):
+                tmp = {'album_genres': features['genres'],
+                       'album_popularity': features['popularity'],
+                       'an_album_uri': features['uri']}
+                tracks[j].update(tmp)
+                j += 1
 
     # -----------
     # Getting Artist information for each track
@@ -141,21 +157,24 @@ def get_playlist_tracks(playlist_id, spotify_object):
     for i in range(0, loops):
         artist_features = spotify_object.artists(artist_ids[i * 50:(i * 50) + 50])
         for features in artist_features['artists']:
-            tmp = {'artist_followers': features['followers']['total'],
-                   'artist_genres': features['genres'],
-                   'an_artist_uri': features['uri'],
-                   'artist_popularity': features['popularity']
-                   }
-            tracks[j].update(tmp)
-            j += 1
+            if j != len(artist_ids):
+                tmp = {'artist_followers': features['followers']['total'],
+                       'artist_genres': features['genres'],
+                       'an_artist_uri': features['uri'],
+                       'artist_popularity': features['popularity']
+                       }
+                tracks[j].update(tmp)
+                j += 1
 
-    artist_features = spotify_object.artists(artist_ids[loops * 50:])
-    for features in artist_features['artists']:
-        tmp = {'artist_followers': features['followers']['total'],
-               'artist_genres': features['genres'],
-               'an_artist_uri': features['uri'],
-               'artist_popularity': features['popularity']}
-        tracks[j].update(tmp)
-        j += 1
+    if j-1 != len(artist_ids):
+        artist_features = spotify_object.artists(artist_ids[j:])
+        for features in artist_features['artists']:
+            if j != len(artist_ids):
+                tmp = {'artist_followers': features['followers']['total'],
+                       'artist_genres': features['genres'],
+                       'an_artist_uri': features['uri'],
+                       'artist_popularity': features['popularity']}
+                tracks[j].update(tmp)
+                j += 1
 
     return tracks
