@@ -39,7 +39,7 @@
                             <span>{{ song['artist_name'] }}</span>
 
                             <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" loop></audio>
-                            <i class="fa fa-play" id="{{ song['preview_url'] }}-btn" 
+                            <i class="fas fa-play-circle" id="{{ song['preview_url'] }}-btn" 
                             onclick="playPause('{{ song['preview_url'] }}', this)"
                             aria-hidden="true"
                             style="cursor:pointer;"></i>

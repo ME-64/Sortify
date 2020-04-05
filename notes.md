@@ -1,4 +1,13 @@
-## TODO 
+### TODAY
+***
+1. Implement pause of audio when another song is played
+2. Refactor to use grid or bootstrap
+3. Interactive Plots for each of the Playlists
+4. Randomised Playlist names
+5. Caching when reload of results page
+
+
+### TODO 
 ***
 1. Work out heuristic for grid of clusters to search over
 2. Better genre feature engineering
