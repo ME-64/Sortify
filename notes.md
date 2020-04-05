@@ -22,6 +22,8 @@
 9. Deploy to digital ocean
 10. Setup coverage checks & CI/CD from GitHub repository
 11. Docker-ise
+12. Change modal pop-up animation
+13. Add favicon
 
 
 ### MaybeDO
