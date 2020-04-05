@@ -7,7 +7,7 @@
 <div class="w3-container w3-margin-top w3-auto" style="margin: 0 auto;">
 <div class="w3-cell-row w3-margin-top" style="display: inline-block;">
 
-    <div class="w3-cell w3-container w3-responsive w3-half w3-margin-bottom" style="max-width: 500px;">
+    <div class="w3-cell w3-container w3-responsive w3-center w3-margin-bottom" style="max-width: 1000px;">
         <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
             <b>The results are in!</b> <br> 
             We looked at 31 different attributes for each song you gave us. <br> <br>
@@ -24,26 +24,9 @@
 
     </div>
 
-
+    {% for numb, playlist in ai_playlists.items() %}
     <div class="w3-cell w3-container w3-responsive w3-half w3-round-xlarge" style="max-width: 500px;">
-        <ul class="w3-ul w3-card-4 w3-light-gray w3-round-xlarge">
-                 {% for playlist in playlists %}
-                <li class="w3-center w3-display-container">
-                    <img src="{{ playlist['img'] }}" class="w3-round-large" style="width:80px;height:80px;margin-top:10px;"/>
-                    <div>
-                        <span class="w3-medium">
-                            <b>{{ playlist['name'] }}</b> <br></span>
-                            <span>{{ playlist['tracks'] }} songs</span>
-                        
-                    </div>
-                </li>
-                {% endfor %}      
-                </form>
-            </ul>
-    </div>
-
-    <div class="w3-cell w3-container w3-responsive w3-half w3-round-xlarge" style="max-width: 500px;">
-        {% for numb, playlist in ai_playlists.items() %}
+        
             <h3>AI Playlist: {{ numb + 1 }}</h3>
             <p> {{ playlist['description']['no_tracks'] }} songs</p>
             <ul class="w3-ul w3-card-4 w3-light-gray w3-round-xlarge">
@@ -54,14 +37,20 @@
                             <span class="w3-medium">
                                 <b>{{ song['track_name'] }}</b> <br></span>
                             <span>{{ song['artist_name'] }}</span>
-                            <audio controls src="{{ song['preview_url'] }}"> Preview </audio>
+
+                            <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" loop></audio>
+                            <i class="fa fa-play" id="{{ song['preview_url'] }}-btn" 
+                            onclick="playPause('{{ song['preview_url'] }}', this)"
+                            aria-hidden="true"
+                            style="cursor:pointer;"></i>
+
                         
                         </div>
                     </li>
                 {% endfor %}      
             </ul>
-        {% endfor %}
-    </div>  
+    </div>
+    {% endfor %}  
 
     
 </div>
