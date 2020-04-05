@@ -27,3 +27,8 @@
   max-width: 350px;
   /* If max-width does not work, try using width instead */
 }
+
+.row {
+  margin-right: auto;
+  margin-left: auto;
+}
