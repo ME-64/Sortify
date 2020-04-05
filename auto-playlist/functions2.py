@@ -1,5 +1,6 @@
-import spotipy
-
+def current_user_saved_tracks(self, limit=20, offset=0, market=None):
+    """Patch to allow spotipy to specify market for user's library"""
+    return self._get("me/tracks", limit=limit, offset=offset, market=market)
 
 
 def get_user_information(spotify_object):
@@ -14,10 +15,12 @@ def get_user_information(spotify_object):
         details['name'] = 'Welcome ' + result['display_name'].split(' ')[0] + ', '
 
     if len(result['images']) > 0:
-        details['image'] = result['images'][0]['url'] 
+        details['image'] = result['images'][2]['url'] 
     else:
         # details['image'] = 'https://www.gravatar.com/avatar/?d=mm' # stock user image
         details['image'] = None
+
+    details['country'] = result['country']
 
     return details
     
@@ -59,7 +62,7 @@ def get_user_playlists(spotify_object):
 
 
 
-def get_playlist_tracks(playlist_ids, spotify_object):
+def get_playlist_tracks(playlist_ids, spotify_object, market=None):
     """Function to get information about all the tracks in a playlist"""
     tracks = []
     if isinstance(playlist_ids, str):
@@ -68,9 +71,9 @@ def get_playlist_tracks(playlist_ids, spotify_object):
     for playlist_id in playlist_ids:
         # print(f'going through {playlist_id}')
         if playlist_id == 'library':
-            result = spotify_object.current_user_saved_tracks()
+            result = spotify_object.current_user_saved_tracks(market=market)
         else:
-            result = spotify_object.playlist_tracks(playlist_id=playlist_id)
+            result = spotify_object.playlist_tracks(playlist_id=playlist_id, market=market)
 
 
         for song in result['items']:
@@ -281,9 +284,9 @@ def get_tracks_features(track_ids, spotify_object):
     
 
 
-def get_all_track_features_from_playlists(playlist_ids, spotify_object):
+def get_all_track_features_from_playlists(playlist_ids, spotify_object, market=None):
     
-    tracks = get_playlist_tracks(playlist_ids, spotify_object)
+    tracks = get_playlist_tracks(playlist_ids, spotify_object, market=market)
     
     tracks = [track for track in tracks if track['track_uri'][8:13] != 'local']
     

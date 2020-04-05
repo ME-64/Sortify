@@ -14,12 +14,19 @@ import analysis
 
 CLIENT_ID = os.environ['spotipy_client_id']
 CLIENT_SECRET = os.environ['spotipy_client_secret']
-SCOPE = 'user-library-read playlist-read-private playlist-modify-private'
+SCOPE = 'user-library-read playlist-read-private playlist-modify-private user-read-private'
 USERNAME = '1120649038'
 REDIRECT_URI = 'http://127.0.0.1:5000/callback'
 AUTH_BASE_URI = 'https://accounts.spotify.com/authorize'
 TOKEN_URI = 'https://accounts.spotify.com/api/token'
 USER_API = 'https://api.spotify.com/v1/me'
+
+
+
+# Patching spotipy
+
+setattr(spotipy.Spotify, 'current_user_saved_tracks', functions2.current_user_saved_tracks)
+
 
 # app setup
 app = Flask(__name__, static_folder='templates/static/')
@@ -89,6 +96,7 @@ def selection():
 
     user = details['name']
     img = details['image']
+    session['country'] = details['country']
 
     library_tracks = 231
     return render_template('selection.html', playlists=playlists, user=user, library_tracks=library_tracks, img=img)
@@ -104,11 +112,11 @@ def results():
 
         tracks = []
 
-        library = functions2.get_all_track_features_from_playlists('library', sp)
+        library = functions2.get_all_track_features_from_playlists('library', sp, session['country'])
         tracks.extend(library)
 
         if len(checks) > 0:
-            tmp = functions2.get_all_track_features_from_playlists(checks, sp)
+            tmp = functions2.get_all_track_features_from_playlists(checks, sp, session['country'])
             tracks.extend(tmp)
 
         clean_tracks = analysis.clean_track_features(tracks)
