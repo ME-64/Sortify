@@ -1,27 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spotify Auto Playlist</title>
+    <title>Sort-ify for Spotify</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/8b836f4942.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <script type="text/javascript"src="{{ url_for('static', filename='audio.js') }}"> </script> 
+    <script type="text/javascript"src="{{ url_for('static', filename='audio.js') }}" crossorigin="anonymous"> </script> 
 {% block head %}
 {% endblock %}
 </head>
-<body>
+<body">
 
-<div class="bgimg-1">
-
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+            <i class="fab d-inline fa-lg fa-spotify"></i>
+            <b class="ml-2 mb-1">Sort-ify for Spotify<b>
+            </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar10">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar10">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#">Other</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#">FAQ</a> </li>
+                </ul> <a class="btn navbar-btn ml-md-2 btn-light text-dark">Source Code</a>
+            </div>
+        </div>
+    </nav> 
     {% block content %}
     {% endblock %}
 
-
-</div>
-</body>
+  <div class="py-5 bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 col-md-4 align-self-center"> <a href="#">
+            <i class="fa fa-fw fa-github text-muted fa-2x"></i>
+          </a>
+          <div class="row">
+            <div class="col-md-12">
+              <h6 class="">View Source Code on Github</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-4 align-self-center"> <a href="#">
+            <i class="fa fa-fw fa-twitter text-muted fa-2x"></i>
+          </a>
+          <div class="row">
+            <div class="col-md-12">
+              <h6 class="">Follow me on twitter for updates!</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-4 align-self-center"> <a href="#">
+            <i class="fa fa-fw fa-instagram text-muted fa-2x"></i>
+          </a>
+          <div class="row">
+            <div class="col-md-12">
+              <h6 class="">Checkout my Instragam for more content<br></h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mt-3 text-center">
+          <p>© Copyright 2020 Milo Elliott - All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body">
 
 </html>

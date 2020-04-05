@@ -1,71 +1,20 @@
-html, body {
-  height: 100%;
-  min-height: 100% !important;
-  margin: 0;
-  font: 400 15px/1. 'Roboto', sans-serif;
-  color: #777;
-}
-
-.bgimg-1, .bgimg-2, .bgimg-3 {
-  position: absolute;
-  opacity: 0.65;
-  background-position: center;
-  background-repeat: repeat-y;
-  background-size: cover;
-
-}
 .bgimg-1 {
-  background-image: url("background.jpg");
-  min-height: 100%;
-  width: 100%;
-}
-
-.caption {
-  position: relative;
-  top:30px;
-  width: 100%;
-  text-align: center;
-}
-
-.caption.main {
-  position: absolute;
-  left: 0;
-  top: 45%;
-  width: 100%;
-  text-align: center;
-  color: #000;
-}
-
-.caption span.border {
-  background-color: rgba(17, 17, 17, 1);
-  color: #fff;
-  padding: 18px;
-  font-size: 30px;
-  letter-spacing: 4px;
-  opacity: 1;
-}
-
-.caption span.secondary {
-  color: white;
-  font-size: 18px;
-  font-family: 'Roboto', sans-serif;
-}
+  background-image: url(background.jpg);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: bottom;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  min-height: 500px;
+  }
 
 
-.m-header {
-  background-color: rgba(17,17,17,0.8);
-  height: 10vh;
-  font-size: 2vmax;
-  text-align: center;
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  width: 100%;
-  position: relative;
-  line-height: 9vh;
-  white-space: nowrap;
-  
-}
-
-
+  @font-face {
+    font-family: "FS Elliot Thin";
+    src: url(FSElliot-Thin.ttf);
+  }
+  body {
+    font-family: "FS Elliot Thin";
+  }

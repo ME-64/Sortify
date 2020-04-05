@@ -1,33 +1,76 @@
 {% extends 'base.html' %}
 {% block head %}
-<style>
-        .bgimg-1 {
-            background-image: url("background.jpg");
-            width: 100%;
-            background-size: cover;
-            background-repeat: no-repeat;
-          }
-        </style>
 {% endblock %}
 
-    {% block content %}
-<!-- Modal -->
+{% block content %}
+<!-- MODAL -->
+<div class="modal" id="loginModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Login with Spotify</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>You're about to be redirected to spotify.com.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Learn more about Oauth</button>
+        <button type="button" class="btn btn-success">Let's Go!</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-    <div class="caption main">
-        <span class="border w3-round-large">Spotify Auto Playlist</span><br>
-        <div class="caption">
-            <span class="secondary">Organise your music collection in just 5 clicks</span>
-            <br>
-            <br>
-            <div class="w3-padding-30">
-                <button class="w3-btn w3-xlarge w3-green w3-hover-light-grey w3-round" onclick="document.getElementById('id01').style.display='block'" style="font-weight:400;position:relative;top:200;">Get Started <b>></b></button>
-            </div>
+<div class="container-fluid" style="background-color:#8ec07c;">
+    <div class="row align-items-center" style="min-height:300px">
+        <div class="col-xl-12 align-self-center">
+            <h1 class="display-3 text-center text-dark text-monospace">Sort&#8209;ify for Spotify</h1>
+            <p class="text-center text-dark">Sort your music collection in just 5 clicks</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xl-12 text-center" style="min-height:130px">
+            <button type="button" class="btn btn-lg btn-success border shadow-lg"
+                    data-toggle="modal" data-target="#loginModal"><h2 class="text-align-center mb-0">Get Started
+            <i class="fa fa-plug fa-xs"></i>
+            </h2></button>
+        </div>
+    </div>
+</div>
 
+<div class="container-fluid bg-secondary pb-1 mb-4"></div>
 
+<div class="bg-indigo container-fluid p-1 mb-4"></div>
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-lg-4 text-center pb-5">
+                <i class="fas fa-eye fa-6x mx-auto text-dark text-center"></i>
+                <h2 class="m-2 text-success display-4">Uncover</h2>
+                <p class="card-text font-weight-lighter">hidden insight about your music taste</p>
+        </div>
+
+        <div class="col-lg-4 text-center pb-5">
+                <i class="fas fa-share fa-6x mx-auto text-dark text-center"></i>
+                <h2 class="m-2 text-success display-4">Save</h2>
+                <p class="card-text font-weight-lighter">new playlists you like directly to Spotify</p>
+        </div>
+
+        <div class="col-lg-4 text-center pb-5">
+                <i class="fas fa-stopwatch fa-6x mx-auto text-dark text-center"></i>
+                <h2 class="m-2 text-success display-4">Get Started</h2>
+                <p class="card-text font-weight-lighter">in as little as 30 seconds</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!--
 <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-fade w3-display-middle">
         <header class="w3-display-container w3-green" style="padding-top:1px;padding-bottom:1px;">
@@ -46,5 +89,5 @@
             <br>
         </footer>
     </div>
-
+-->
 {% endblock %}
