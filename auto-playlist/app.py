@@ -95,6 +95,10 @@ def selection():
     details = functions2.get_user_information(sp)
 
     user = details['name']
+
+    if user == '1120649038':
+        user = 'Milo'
+
     img = details['image']
     session['country'] = details['country']
 

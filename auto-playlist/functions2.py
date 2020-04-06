@@ -10,15 +10,15 @@ def get_user_information(spotify_object):
     print(result, flush=True)
 
     if result['display_name'].isnumeric():
-        details['name'] = 'Welcome, '
+        details['name'] = result['display_name']
     else:
-        details['name'] = 'Welcome ' + result['display_name'].split(' ')[0] + ', '
+        details['name'] = result['display_name'].split(' ')[0] + ', '
 
     if len(result['images']) > 0:
         details['image'] = result['images'][2]['url'] 
     else:
-        # details['image'] = 'https://www.gravatar.com/avatar/?d=mm' # stock user image
-        details['image'] = None
+        details['image'] = 'https://www.gravatar.com/avatar/?d=mm' # stock user image
+        # details['image'] = None
 
     details['country'] = result['country']
 

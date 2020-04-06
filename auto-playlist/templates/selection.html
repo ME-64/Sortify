@@ -1,57 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="m-header">
-    <span>Spotify Auto-Playlist: <b>Music Selection</b></span>
-</div>
 
-
-<div class="w3-container w3-margin-top w3-auto" style="margin: 0 auto;">
-<div class="w3-cell-row w3-margin-top" style="display: inline-block;">
-
-    <div class="w3-cell w3-container w3-responsive w3-half w3-margin-bottom" style="max-width: 500px;">
-        <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
-            {% if img %}
-                <img src="{{ img }}" alt ="User Profile Image" style="width: 80px;height:80px" class="w3-round-large w3-center"/>
-                <br>
-            {% endif %}
-            <b>{{ user }}</b> <br> 
-            You're now logged in and we can begin sort-ifying your music collection. <br> <br>
-            We're automatically including your saved spotify songs, but you can also add some
-            of your own playlists. We've picked a few you might like. <br> <br>
-            Once you've made your selection, click go and we'll do the rest! <br> <br>
-            <div class="w3-center">
-                <button class="w3-button w3-large w3-round-large w3-green" 
-                        type="submit" form="form1" formaction="{{ url_for('results') }}">
-                        Sort-ify my music!</button>
-            </div>
-            
+<div class="container-fluid" style="background-color:#8ec07c;">
+    <div class="row align-items-center p-1">
+        <div class="col-sm-9 text-xs-center text-sm-left">
+            <h2 class="mb-0 tx-xs-center text-sm-left">Select your songs and configure settings...</h2>
         </div>
 
+        <div class="col-sm-3 text-xs-center text-sm-right d-none d-sm-block">
+            <p class="mb-0">Welcome, <b class="font-weight-bolder">{{ user }}</b></p>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container-fluid bg-secondary pb-1 mb-4"></div> -->
+
+<div class="container-fluid">
+    <div class="row mt-4 justify-content-center">
+        <div class="col-sm-4 mb-4">
+            <div class="card">
+                <div class="card-header h4 text-monospace text-secondary">
+                Welcome, {{ user }}
+                <i class="fas fa-user text-muted text-right"></i>
+                </div>
+                <div class="card-body">
+                    <i class="fas fa-check-square fa-3x text-success"></i>
+                    <h4 class="card-title">Success!</h4>
+                    <p class="card-text">
+                        You're now logged in and we can begin sort-ifying your music collection <br> <br>
+                        We're automatically including your <strong class="text-info">saved spotify songs</strong>, but you can also add some
+                        additional playlists. We've picked a few you might like. <br> <br>
+                        Once you've made your selection, click go and we'll do the rest! <br> <br>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
     </div>
 
 
-    <div class="w3-cell w3-container w3-responsive w3-half w3-round-xlarge" style="max-width: 500px;">
-        <ul class="w3-ul w3-card-4 w3-light-gray w3-round-xlarge">
-                <form method="POST" id="form1">
-                {% for playlist in playlists %}
-                <li class="w3-center w3-display-container">
-                    
-                        <input name="checks" type="checkbox" value="{{ playlist['playlist_uri'] }}" id="{{ playlist['playlist_uri'] }}" class="w3-check w3-display-left w3-margin-left" checked>
-                    
-                    <img src="{{ playlist['img'] }}" class="w3-round-large" style="width:80px;height:80px;margin-top:10px;"/>
-                    <div>
-                        <span class="w3-medium">
-                            <b>{{ playlist['name'] }}</b> <br></span>
-                            <span>{{ playlist['tracks'] }} songs</span>
-                        
-                    </div>
-                </li>
-                {% endfor %}      
-                </form>
-            </ul>
-    </div>
 
-    
 </div>
-</div>
+
+
 {% endblock %}
