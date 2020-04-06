@@ -3,12 +3,12 @@
 
 <div class="container-fluid" style="background-color:#8ec07c;">
     <div class="row align-items-center p-1">
-        <div class="col-sm-9 text-xs-center text-sm-left">
-            <h2 class="mb-0 tx-xs-center text-sm-left">Select your songs and configure settings...</h2>
+        <div class="col-9 text-xs-center text-sm-left">
+            <h2 class="mb-0 tx-xs-center text-sm-left">Welcome, {{ user }}</h2>
         </div>
 
-        <div class="col-sm-3 text-xs-center text-sm-right d-none d-sm-block">
-            <p class="mb-0">Welcome, <b class="font-weight-bolder">{{ user }}</b></p>
+        <div class="col-3 text-right">
+            <i class="fas fa-user text-muted"></i>
         </div>
     </div>
 </div>
@@ -17,8 +17,8 @@
 
 <div class="container-fluid">
     <div class="row mt-4 justify-content-center">
-        <div class="col-sm-4 mb-4">
-            <div class="card">
+        <div class="col-xs-4 mb-4">
+            <div class="card" style="max-width:600px;">
                 <div class="card-header h4 text-monospace text-secondary">
                 Welcome, {{ user }}
                 <i class="fas fa-user text-muted text-right"></i>
