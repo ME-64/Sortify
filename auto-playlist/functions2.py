@@ -54,7 +54,8 @@ def get_user_playlists(spotify_object):
                 'tracks': p['tracks']['total']
             }
             playlists.append(tmp)
-    playlists = sorted(playlists, key=lambda i: i['tracks'], reverse=True)
+    # Not using sorting functionality for now
+    # playlists = sorted(playlists, key=lambda i: i['tracks'], reverse=True)
     playlists = [playlist for playlist in playlists if playlist['tracks'] > 1]
     
     for playlist in playlists:

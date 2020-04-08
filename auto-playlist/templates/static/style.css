@@ -1,34 +1,38 @@
 .bgimg-1 {
-  background-image: url(background.jpg);
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: bottom;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-  min-height: 500px;
-  }
+    background-image: url(background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: bottom;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    min-height: 500px;
+}
 
-
-  @font-face {
+@font-face {
     font-family: "FS Elliot Thin";
     src: url(FSElliot-Thin.ttf);
-  }
-  body {
-    font-family: "FS Elliot Thin";
-  }
+}
 
-  .tooltip-inner {
+body {
+    font-family: "FS Elliot Thin";
+}
+
+.tooltip-inner {
     text-align: left;
 }
 
 .tooltip-inner {
-  max-width: 350px;
-  /* If max-width does not work, try using width instead */
+    max-width: 350px;
+    /* If max-width does not work, try using width instead */
 }
 
 .row {
-  margin-right: auto;
-  margin-left: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn-grey {
+    background-color: rgba(51, 181, 49, 0.3);
 }

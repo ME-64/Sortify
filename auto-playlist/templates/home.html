@@ -1,8 +1,4 @@
-{% extends 'base.html' %}
-{% block head %}
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block head %} {% endblock %} {% block content %}
 <!-- MODAL -->
 <div class="modal" id="loginModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="dialog">
@@ -15,9 +11,7 @@
             </div>
             <div class="modal-body">
                 <p>You're about to be redirected to https://www.spotify.com/ to login to your account.</p>
-                <p>Don't worry your details are <a href="#" data-toggle="tooltip" 
-                    title="Sort-ify uses Spotify's Oauth2 for verification"
-                    data-placement="top" data-delay="100">never</a> shared with us.
+                <p>Don't worry your details are <a href="#" data-toggle="tooltip" title="Sort-ify uses Spotify's Oauth2 for verification" data-placement="top" data-delay="100">never</a> shared with us.
                 </p>
             </div>
             <div class="modal-footer">
@@ -39,8 +33,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12 text-center" style="min-height:130px">
-            <button type="button" class="btn btn-lg btn-success border shadow-lg"
-                    data-toggle="modal" data-target="#loginModal"><h2 class="text-align-center mb-0">Get Started
+            <button type="button" class="btn btn-lg btn-success border shadow-lg" data-toggle="modal" data-target="#loginModal"><h2 class="text-align-center mb-0">Get Started
             <i class="fa fa-plug fa-xs"></i>
             </h2></button>
         </div>
@@ -53,21 +46,21 @@
 <div class="container-fluid">
     <div class="row align-items-center">
         <div class="col-lg-4 text-center pb-5">
-                <i class="fas fa-eye fa-6x mx-auto text-dark text-center"></i>
-                <h2 class="m-2 text-success display-4">Uncover</h2>
-                <p class="card-text font-weight-lighter">hidden insight about your music taste</p>
+            <i class="fas fa-eye fa-6x mx-auto text-dark text-center"></i>
+            <h2 class="m-2 text-success display-4">Uncover</h2>
+            <p class="card-text font-weight-lighter">hidden insight about your music taste</p>
         </div>
 
         <div class="col-lg-4 text-center pb-5">
-                <i class="fas fa-share fa-6x mx-auto text-dark text-center"></i>
-                <h2 class="m-2 text-success display-4">Save</h2>
-                <p class="card-text font-weight-lighter">new playlists you like directly to Spotify</p>
+            <i class="fas fa-share fa-6x mx-auto text-dark text-center"></i>
+            <h2 class="m-2 text-success display-4">Save</h2>
+            <p class="card-text font-weight-lighter">new playlists you like directly to Spotify</p>
         </div>
 
         <div class="col-lg-4 text-center pb-5">
-                <i class="fas fa-stopwatch fa-6x mx-auto text-dark text-center"></i>
-                <h2 class="m-2 text-success display-4">Get Started</h2>
-                <p class="card-text font-weight-lighter">in as little as 30 seconds</p>
+            <i class="fas fa-stopwatch fa-6x mx-auto text-dark text-center"></i>
+            <h2 class="m-2 text-success display-4">Get Started</h2>
+            <p class="card-text font-weight-lighter">in as little as 30 seconds</p>
         </div>
 
     </div>

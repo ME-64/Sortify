@@ -26,28 +26,28 @@
             </div>
         </div>
 
-        <div class="col-xs-4 m-4" style="max-width: 600px;">
+        <div class="col-xs-4 m-4" style="max-width: 600px; width: 100%;">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Add additional songs</h5>
                     <p class="card-text">
-                        <ul class="list-group">
+                        <ul class="list-group" style="max-height: 800px; overflow: auto;">
                             {% for playlist in playlists %}
                             <li class="list-group-item">
                                 <form>
                                     <div data-toggle="buttons">
-                                        <label class="btn container-fluid p-0 m-0" type="button">
+                                        <label class="btn container-fluid p-0 m-1" type="button">
                                             <input type="checkbox" name="test" style="display: none;" autocomplete="off">
                                             <div class="row justify-content-center text-center text-md-left">
                                                 <div class="col-sm-4 col-md-2 align-self-center p-1">
                                                     <img src="{{ playlist['img'] }}" alt="Playlist Image" class="rounded img-fluid" style="width: 50px;height: 50px;">
                                                 </div>
-                                                <div class="col-sm-8 col-md-4 align-self-center p-1">
-                                                    <h6> {{ playlist['name'] }}</h6>
-                                                    <p class="text-secondary mb-0"> {{ playlist['tracks'] }} songs</p>
+                                                <div class="col-sm-8 col-md-4 align-self-center p-1 text-dark">
+                                                    <h6 class="text-dark font-weight-bold"> {{ playlist['name'] }}</h6>
+                                                    <p class="text-dark mb-0"> {{ playlist['tracks'] }} songs</p>
                                                 </div>
-                                                <div class="d-none d-md-block col-md-6  align-self-center">
-                                                    <small> {{ playlist['desc'] }}</small>
+                                                <div class="d-none d-md-block col-md-6 align-self-center text-dark">
+                                                    <p class="mb-0"> {{ playlist['desc'] }}</p>
                                                 </div>
                                             </div>
                                         </label>
@@ -68,7 +68,7 @@
 <script>
     $('[data-toggle="buttons"] .btn').on('click', function() {
         // toggle style
-        $(this).toggleClass('btn-secondary active');
+        $(this).toggleClass('btn-grey active');
         $(this).add()
 
         // toggle checkbox

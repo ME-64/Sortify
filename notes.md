@@ -1,3 +1,11 @@
+### Realistic Tonight
+1. Change button colour for better viewability
+2. Add scroll to the playlists output, or limit the number
+3. Change sort order, I think keep it default.
+4. Correctly retrieve results from the form.
+5. Add outline of the algorithm selection step.
+
+
 ### TODAY
 ***
 1. Implement pause of audio when another song is played

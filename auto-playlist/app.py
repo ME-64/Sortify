@@ -88,8 +88,8 @@ def selection():
     playlists = functions2.get_user_playlists(sp)
     playlists = playlists[0:]
     for playlist in playlists:
-        if len(playlist['name']) >36:
-            playlist['name'] = playlist['name'][0:33] + '...'
+        if len(playlist['name']) >20:
+            playlist['name'] = playlist['name'][0:17] + '...'
 
         if len(playlist['desc']) > 80:
             playlist['desc'] = playlist['desc'][0:78] + '...'
