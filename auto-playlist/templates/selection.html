@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="container-fluid" style="background-color:#8ec07c;">
     <div class="row align-items-center p-1">
@@ -8,42 +7,81 @@
         </div>
 
         <div class="col-3 text-right">
-            <i class="fas fa-user text-muted"></i>
+            <i class="fas fa-user fa-2x text-muted"></i>
         </div>
     </div>
 </div>
-
-<!-- <div class="container-fluid bg-secondary pb-1 mb-4"></div> -->
-
 <div class="container-fluid">
     <div class="row mt-4 justify-content-center">
-        <div class="col-xs-4 mb-4">
-            <div class="card" style="max-width:600px;">
+        <div class="col-xs-4 m-4" style="max-width: 600px;">
+            <div class="card">
                 <div class="card-header h4 text-monospace text-secondary">
-                Welcome, {{ user }}
-                <i class="fas fa-user text-muted text-right"></i>
+                    <i class="fas fa-check-square text-success"></i> Success!
                 </div>
                 <div class="card-body">
-                    <i class="fas fa-check-square fa-3x text-success"></i>
-                    <h4 class="card-title">Success!</h4>
                     <p class="card-text">
-                        You're now logged in and we can begin sort-ifying your music collection <br> <br>
-                        We're automatically including your <strong class="text-info">saved spotify songs</strong>, but you can also add some
-                        additional playlists. We've picked a few you might like. <br> <br>
-                        Once you've made your selection, click go and we'll do the rest! <br> <br>
+                        You're now logged in and we can begin sort-ifying your music collection <br> <br> We're automatically including your <strong class="text-info">saved spotify songs</strong>, but you can make some additional customisations below
                     </p>
                 </div>
-
             </div>
-
         </div>
 
+        <div class="col-xs-4 m-4" style="max-width: 600px;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add additional songs</h5>
+                    <p class="card-text">
+                        <ul class="list-group">
+                            {% for playlist in playlists %}
+                            <li class="list-group-item">
+                                <form>
+                                    <div data-toggle="buttons">
+                                        <label class="btn container-fluid p-0 m-0" type="button">
+                                            <input type="checkbox" name="test" style="display: none;" autocomplete="off">
+                                            <div class="row justify-content-center text-center text-md-left">
+                                                <div class="col-sm-4 col-md-2 align-self-center p-1">
+                                                    <img src="{{ playlist['img'] }}" alt="Playlist Image" class="rounded img-fluid" style="width: 50px;height: 50px;">
+                                                </div>
+                                                <div class="col-sm-8 col-md-4 align-self-center p-1">
+                                                    <h6> {{ playlist['name'] }}</h6>
+                                                    <p class="text-secondary mb-0"> {{ playlist['tracks'] }} songs</p>
+                                                </div>
+                                                <div class="d-none d-md-block col-md-6  align-self-center">
+                                                    <small> {{ playlist['desc'] }}</small>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </form>
+                            </li>
+                            {% endfor %}
 
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-
 </div>
 
 
+<script>
+    $('[data-toggle="buttons"] .btn').on('click', function() {
+        // toggle style
+        $(this).toggleClass('btn-secondary active');
+        $(this).add()
+
+        // toggle checkbox
+        var $chk = $(this).find('[type=checkbox]');
+        $chk.prop('checked', !$chk.prop('checked'));
+
+        return false;
+    });
+
+    $('form').on('submit', function(e) {
+        // watch form values
+        $('#formValues').html(($('form').serialize()));
+        e.preventDefault();
+    });
+</script>
 {% endblock %}

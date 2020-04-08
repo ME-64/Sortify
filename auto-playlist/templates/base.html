@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Sort-ify for Spotify</title>
     <meta charset="UTF-8">
@@ -18,24 +19,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <script type="text/javascript"src="{{ url_for('static', filename='audio.js') }}" crossorigin="anonymous"> </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='audio.js') }}" crossorigin="anonymous">
+    </script>
     <!-- enable bootstrap tooltips-->
     <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
-{% block head %}
-{% endblock %}
+    {% block head %} {% endblock %}
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href=" {{ url_for('index') }}">
-            <i class="fab d-inline fa-lg fa-spotify mr-2"></i>
-            <b class="">Sort-ify for Spotify<b>
+                <i class="fab d-inline fa-lg fa-spotify mr-2"></i>
+                <b class="">Sort-ify for Spotify<b>
             </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar10">
             <span class="navbar-toggler-icon"></span>
             </button>

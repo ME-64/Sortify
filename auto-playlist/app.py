@@ -86,10 +86,13 @@ def callback():
 def selection():
     sp = spotipy.Spotify(auth=session['token']['access_token'])
     playlists = functions2.get_user_playlists(sp)
-    playlists = playlists[0:5]
+    playlists = playlists[0:]
     for playlist in playlists:
-        if len(playlist['name']) >40:
-            playlist['name'] = playlist['name'][0:37] + '...'
+        if len(playlist['name']) >36:
+            playlist['name'] = playlist['name'][0:33] + '...'
+
+        if len(playlist['desc']) > 80:
+            playlist['desc'] = playlist['desc'][0:78] + '...'
 
     playlists = [playlist for playlist in playlists if playlist['tracks'] > 0]
         

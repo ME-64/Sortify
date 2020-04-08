@@ -1,3 +1,5 @@
+import re
+
 def current_user_saved_tracks(self, limit=20, offset=0, market=None):
     """Patch to allow spotipy to specify market for user's library"""
     return self._get("me/tracks", limit=limit, offset=offset, market=market)
@@ -7,7 +9,6 @@ def get_user_information(spotify_object):
     """Function to get information about the currently logged in Spotify User"""
     result = spotify_object.current_user()
     details = {}
-    print(result, flush=True)
 
     if result['display_name'].isnumeric():
         details['name'] = result['display_name']
@@ -24,9 +25,6 @@ def get_user_information(spotify_object):
 
     return details
     
-
-
-
 
 def get_user_playlists(spotify_object):
     """Function to get all of a users playlists"""
@@ -58,6 +56,9 @@ def get_user_playlists(spotify_object):
             playlists.append(tmp)
     playlists = sorted(playlists, key=lambda i: i['tracks'], reverse=True)
     playlists = [playlist for playlist in playlists if playlist['tracks'] > 1]
+    
+    for playlist in playlists:
+        playlist['desc'] = remove_html_tags(playlist['desc'])
     return playlists
 
 
@@ -287,19 +288,14 @@ def get_tracks_features(track_ids, spotify_object):
 def get_all_track_features_from_playlists(playlist_ids, spotify_object, market=None):
     
     tracks = get_playlist_tracks(playlist_ids, spotify_object, market=market)
-    
     tracks = [track for track in tracks if track['track_uri'][8:13] != 'local']
     
     track_ids = [x['track_uri'] for x in tracks]
-    
     album_ids = [x['album_uri'] for x in tracks]
-    
     artist_ids = [x['artist_uri'] for x in tracks]
     
     track_features = get_tracks_features(track_ids, spotify_object)
-    
     artist_features = get_artists_features(artist_ids, spotify_object)
-    
     album_features = get_albums_features(album_ids, spotify_object)
     
     for track, artist, album, track_more in zip(tracks, artist_features, album_features, track_features):
@@ -309,5 +305,8 @@ def get_all_track_features_from_playlists(playlist_ids, spotify_object, market=N
         
     return tracks
 
-
+def remove_html_tags(text):
+    """Remove html tags from a string"""
+    clean = re.compile('<.*?>')
+    return re.sub(clean, '', text)
 

@@ -3,9 +3,8 @@ oauthlib
 requests
 flask
 spotipy
-pandas
+pandas==1.0.1
 numpy
 scikit-learn
 matplotlib
-
 python-dotenv
