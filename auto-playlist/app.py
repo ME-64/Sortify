@@ -12,6 +12,8 @@ from oauthlib.oauth2 import WebApplicationClient
 import functions2
 import analysis
 
+from dotenv import load_dotenv
+load_dotenv()
 CLIENT_ID = os.environ['spotipy_client_id']
 CLIENT_SECRET = os.environ['spotipy_client_secret']
 SCOPE = 'user-library-read playlist-read-private playlist-modify-private user-read-private'

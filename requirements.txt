@@ -5,3 +5,7 @@ flask
 spotipy
 pandas
 numpy
+scikit-learn
+matplotlib
+
+python-dotenv
