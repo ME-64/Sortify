@@ -115,6 +115,9 @@ def selection():
 def results():
     if request.method == 'POST':
         checks = request.form.getlist('checks')
+        print(checks, flush=True)
+        print(request.form, flush=True)
+        return jsonify(checks)
         session['checks'] = checks.copy()
 
         sp = spotipy.Spotify(auth=session['token']['access_token']) 
