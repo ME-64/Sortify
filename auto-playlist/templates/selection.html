@@ -3,7 +3,7 @@
 <div class="container-fluid" style="background-color:#8ec07c;">
     <div class="row align-items-center p-1">
         <div class="col-9 text-xs-center text-sm-left">
-            <h2 class="m-2 tx-xs-center text-sm-left">Welcome, {{ user }}</h2>
+            <h2 class="m-2 tx-xs-center text-sm-left text-white">Welcome, {{ user }}</h2>
         </div>
 
         <div class="col-3 text-right">
@@ -15,7 +15,7 @@
     <div class="row mt-4 justify-content-center">
         <div class="col-xs-4 mt-0 mb-4 ml-4 mr-4" style="max-width: 600px; width: 100%;">
             <div class="card">
-                <div class="card-header h4 text-secondary">
+                <div class="card-header h6 text-secondary">
                     <i class="fas fa-check-square text-success"></i> You've successfully logged in
                 </div>
                 <div class="card-body">
@@ -25,9 +25,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row mt-4 justify-content-center">
         <div class="col-xs-4 mt-0 mb-4 ml-4 mr-4" style="max-width: 600px; width: 100%">
             <div class="card" style="height:100%">
-                <div class="card-header h4 text-secondary">
+                <div class="card-header h6 text-secondary">
                     I'm ready, sortify my songs!
                 </div>
                 <div class="card-body">
@@ -39,28 +41,33 @@
         </div>
     </div>
     <div class="row mt-4 justify-content-center">
-        <div class="col-xs-4 mt-0 mb-4 ml-4 mr-4" style="max-width: 600px; width: 100%;">
+        <div class="col-xs-4 mt-0 mb-4 ml-4 mr-4 align-self-center" style="max-width: 600px; width: 100%;">
             <div class="card">
-                <div class="card-header h4 text-secondary">Tweak our algorithm to your preferences...</div>
-                <div class="card-body">
-                    <p class="card-text">
-                        This is placeholder text 213
-                    </p>
+                <div class="card-header text-left h6 text-secondary btn" data-toggle="collapse" data-target="#algo">
+                    <i class="fas fa-angle-down fa-2x d-inline mr-2"></i>Tweak the sorting algorithm...</div>
+                <div class="collapse" id="algo">
+                    <div class="card-body">
+                        <p class="card-text">
+                            This is placeholder text 213
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="row mt-4 justify-content-center">
         <div class="col-xs-4 mt-0 mb-4 ml-4 mr-4" style="max-width: 600px; width: 100%;">
             <div class="card">
-                <div class="card-header h4 text-secondary">Include songs from your playlists...</div>
-                <div class="card-body">
-                    <p class="card-text">
-                        <ul class="list-group border rounded" style="max-height: 600px; overflow: auto;">
-                            <form method="POST" id="form1">
-                                {% for playlist in playlists %}
-                                <li class="list-group-item">
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn container-fluid p-0 m-1" name="checks" type="button">
+                <div class="card-header text-left h6 text-secondary btn" data-toggle="collapse" data-target="#playlists">Include songs from your playlists...</div>
+                <div class="collapse" id="playlists">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <ul class="list-group border rounded" style="max-height: 600px; overflow: auto;">
+                                <form method="POST" id="form1">
+                                    {% for playlist in playlists %}
+                                    <li class="list-group-item">
+                                        <div data-toggle="buttons">
+                                            <label class="btn container-fluid p-0 m-1" name="checks" type="button">
                                             <input id="{{ playlist['playlist_uri'] }}" value="{{ playlist['playlist_uri'] }}" type="checkbox" data-toggle="button" name="checks" style="display: none;" autocomplete="off">
                                             <div class="row justify-content-center text-center text-md-left">
                                                 <div class="col-sm-4 col-md-2 align-self-center p-1">
@@ -75,13 +82,13 @@
                                                 </div>
                                             </div>
                                         </label>
-                                    </div>
-                            </form>
-                            </li>
-                            {% endfor %}
-
-                        </ul>
-                    </p>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </form>
+                            </ul>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

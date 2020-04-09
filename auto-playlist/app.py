@@ -115,11 +115,8 @@ def selection():
 def results():
     if request.method == 'POST':
         checks = request.form.getlist('checks')
-        print(checks, flush=True)
-        print(request.form, flush=True)
-        return jsonify(checks)
         session['checks'] = checks.copy()
-
+        print(checks,flush=True)
         sp = spotipy.Spotify(auth=session['token']['access_token']) 
 
         tracks = []
@@ -147,4 +144,4 @@ def results():
 if __name__ == "__main__":
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     app.secret_key = os.urandom(24)
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
