@@ -108,7 +108,7 @@ def selection():
     session['country'] = details['country']
 
     library_tracks = 231
-    return render_template('selection.html', playlists=playlists, user=user, library_tracks=library_tracks, img=img)
+    return render_template('selection_new.html', playlists=playlists, user=user, library_tracks=library_tracks, img=img)
 
 
 @app.route('/results', methods=['GET', 'POST'])
