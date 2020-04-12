@@ -26,7 +26,30 @@
 
 
 ### IDEAS
-***
+-----------
 1. You give your input songs, and then can select certain playlists you would like.
    1. i.e. "I want an upbeat playlist to dance too" -> It will select the relative most upbeat songs from your library
 2. 
+
+
+### Results Page Planning
+-------------------------
+- At the top, general explanation of the cluster
+- Overview of how good the cluster split was with PCA graph (3D)
+- General overview of their music taste
+- Submit button for once they're done with their preference
+- Each playlist is a collapsable card, with:
+1. Playlist Number
+2. Playlist Art Selected from Unsplash
+2. Generated Playlist Name (Perhaps as form entry which you can edit) - would need controls
+3. Number of tracks in playlist (small font)
+4. Rough description of the songs in the playlist
+5. Button on righthand side to include.
+
+
+In the body:
+General charts about the playlists (perhaps chartist.js?)
+List of tracks to categories in the playlist
+Play buttons for each (with pause when others are playing via jscript)
+At the bottom, button to go back to top
+

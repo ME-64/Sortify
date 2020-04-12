@@ -1,9 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 
+
 <div class="container-fluid" style="background-color:#8ec07c;">
   <div class="row align-items-center p-1">
     <div class="col-9 text-xs-center text-sm-left">
-      <h2 class="m-2 tx-xs-center text-sm-left text-white">Your personalised Sortify is ready</h2>
+      <h2 class="m-2 tx-xs-center text-sm-left text-white">Your personalised <em>Sortify</em> is ready</h2>
     </div>
 
     <div class="col-3 text-right">
@@ -11,5 +12,65 @@
     </div>
   </div>
 </div>
+
+<div class="container-fluid mt-4">
+  <div class="w3-cell w3-container w3-responsive w3-center w3-margin-bottom" style="max-width: 1000px;">
+    <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
+      <b>The results are in!</b> <br>
+      We looked at 31 different attributes for each song you gave us. <br> <br>
+      It looks like it makes sense to split your songs into {{ no_clusters }} playlists. <br> <br>
+      Before we dive into the playlists, here's some general stats about your music taste. <br> <br>
+      Your favourite genre is: <br>
+      X, Y, and Z seem to be your favourite artists
+    </div>
+  </div>
+
+</div>
+
+<div class="border-top ml-0 mr-0 mt-3 mb-3 container-fluid"></div>
+
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <a class="card-link" data-toggle="collapse" href="#collapseOne">
+        Collapsible Group Item #1
+      </a>
+    </div>
+    <div id="collapseOne" class="collapse show">
+      <div class="card-body">
+        Lorem ipsum..
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+        Collapsible Group Item #2
+      </a>
+    </div>
+    <div id="collapseTwo" class="collapse">
+      <div class="card-body">
+        Lorem ipsum..
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+        Collapsible Group Item #3
+      </a>
+    </div>
+    <div id="collapseThree" class="collapse">
+      <div class="card-body">
+        Lorem ipsum..
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 {% endblock %}

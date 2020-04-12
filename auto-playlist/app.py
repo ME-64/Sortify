@@ -13,7 +13,7 @@ import functions2
 import analysis
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 CLIENT_ID = os.environ['spotipy_client_id']
 CLIENT_SECRET = os.environ['spotipy_client_secret']
 SCOPE = 'user-library-read playlist-read-private playlist-modify-private user-read-private'
@@ -22,7 +22,6 @@ REDIRECT_URI = 'http://127.0.0.1:5000/callback'
 AUTH_BASE_URI = 'https://accounts.spotify.com/authorize'
 TOKEN_URI = 'https://accounts.spotify.com/api/token'
 USER_API = 'https://api.spotify.com/v1/me'
-
 
 
 # Patching spotipy
@@ -137,7 +136,7 @@ def results():
         ai_playlists = analysis.get_ai_playlists(clustered_tracks)
 
 
-    return render_template('results_new.html', )#no_clusters=no_clusters, ai_playlists=ai_playlists)
+    return render_template('results_new.html')# no_clusters=no_clusters, ai_playlists=ai_playlists)
 
 
 
