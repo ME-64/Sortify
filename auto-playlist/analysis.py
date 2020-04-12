@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import make_pipeline 
+from sklearn.pipeline import make_pipeline
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.metrics import silhouette_samples
@@ -16,12 +16,12 @@ def clean_track_features(track_list):
     ----------
     track_list : list of dictionaries
         Each dictionary is a track with features from functions.get_all_playlist_tracks()
-    
+
     Returns
     -------
     df: pd.DataFrame
         Cleaned output ready for analysis
-    """    
+    """
     df = pd.DataFrame(track_list)
     df.drop_duplicates(subset='track_uri', inplace=True)
     # filter out tracks that are new and yet to have feature analysis
@@ -29,7 +29,7 @@ def clean_track_features(track_list):
     df = df.loc[df['an_track_uri'] != '-999']
 
     # --Feature extraction--
-    
+
     # Dates
     df['release_year'] = df['release_date'].str.slice(stop=4)
     df['release_month'] = df['release_date'].str.slice(start=5, stop=7)
@@ -68,7 +68,7 @@ def clean_track_features(track_list):
 
 
 def cluster_songs(songs_df):
-    COLS = ['explicit', 'track_popularity', 'danceability','energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness', 
+    COLS = ['explicit', 'track_popularity', 'danceability','energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness',
     'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month',
     'artist_jazz', 'artist_pop', 'artist_indie', 'artist_rock', 'artist_electro', 'artist_randb', 'artist_techno', 'artist_country']
 
@@ -81,7 +81,7 @@ def cluster_songs(songs_df):
 
 
     anl_df = songs_df.loc[:, COLS]
-    
+
     scaled_anl = StandardScaler().fit_transform(anl_df)
 
     best = {}
@@ -108,12 +108,12 @@ def cluster_songs(songs_df):
 
 
 def plot_clusters(songs_df):
-    COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers', 'artist_popularity', 
-    'album_popularity', 'danceability','energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness', 
-    'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release', 
-    'relpop_track_album', 'relpop_track_artist', 'relpop_album_artist', 'artist_jazz', 'artist_pop', 'artist_indie', 
+    COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers', 'artist_popularity',
+    'album_popularity', 'danceability','energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness',
+    'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release',
+    'relpop_track_album', 'relpop_track_artist', 'relpop_album_artist', 'artist_jazz', 'artist_pop', 'artist_indie',
     'artist_rock', 'artist_electro', 'artist_randb', 'artist_techno', 'artist_country']
-    
+
     anl_df = songs_df.loc[:, COLS]
 
     pca = make_pipeline(StandardScaler(), PCA(n_components=2))
@@ -128,9 +128,9 @@ def plot_clusters(songs_df):
 
 def get_ai_playlists(songs_df):
     """Function to convert clustering results DF to sorted playlists in dictionary format"""
-    
+
     COLS = ['img', 'track_name', 'preview_url', 'artist_name']
-    
+
     # We want to show the songs that have a preview URL first
     songs_df['has_preview'] = 1
     songs_df.loc[songs_df['preview_url'] == 0, 'has_preview'] = 0
@@ -145,9 +145,9 @@ def get_ai_playlists(songs_df):
         no_tracks = tmp.shape[0]
         avg_pop = tmp['track_popularity'].mean()
         avg_year = int(tmp['release_year'].astype('int').mean())
-        
+
         tmp = tmp.loc[:, COLS]
-        
+
         ai_playlist[cluster] = {}
         ai_playlist[cluster]['description'] = {
             'avg_score': avg_score,
@@ -155,7 +155,7 @@ def get_ai_playlists(songs_df):
             'avg_pop': avg_pop,
             'avg_year': avg_year
         }
-        ai_playlist[cluster]['songs'] = tmp.to_dict('r') 
+        ai_playlist[cluster]['songs'] = tmp.to_dict('r')
 
     return ai_playlist
 

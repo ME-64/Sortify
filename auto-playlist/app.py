@@ -95,7 +95,7 @@ def selection():
             playlist['desc'] = playlist['desc'][0:78] + '...'
 
     playlists = [playlist for playlist in playlists if playlist['tracks'] > 0]
-        
+
 
     details = functions2.get_user_information(sp)
 
@@ -117,7 +117,7 @@ def results():
         checks = request.form.getlist('checks')
         session['checks'] = checks.copy()
         print(checks,flush=True)
-        sp = spotipy.Spotify(auth=session['token']['access_token']) 
+        sp = spotipy.Spotify(auth=session['token']['access_token'])
 
         tracks = []
 
@@ -137,7 +137,7 @@ def results():
         ai_playlists = analysis.get_ai_playlists(clustered_tracks)
 
 
-    return render_template('results.html', no_clusters=no_clusters, ai_playlists=ai_playlists)
+    return render_template('results_new.html', )#no_clusters=no_clusters, ai_playlists=ai_playlists)
 
 
 
