@@ -1,50 +1,45 @@
-{% extends 'base.html' %}
-{% block head %}
+{% extends 'base.html' %} {% block head %}
 <div class="m-header">
-  <span>Spotify Auto-Playlist: <b>Results</b></span>
+    <span>Spotify Auto-Playlist: <b>Results</b></span>
 </div>
 
 <div class="w3-container w3-margin-top w3-auto" style="margin: 0 auto;">
-  <div class="w3-cell-row w3-margin-top" style="display: inline-block;">
+    <div class="w3-cell-row w3-margin-top" style="display: inline-block;">
 
-    <div class="w3-cell w3-container w3-responsive w3-center w3-margin-bottom" style="max-width: 1000px;">
-      <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
-        <b>The results are in!</b> <br>
-        We looked at 31 different attributes for each song you gave us. <br> <br>
-        It looks like it makes sense to split your songs into {{ no_clusters }} playlists. <br> <br>
-        You can explore these playlists, change their name, and optionally save them
-        straight to your spotify if you want! <br> <br>
-      </div>
+        <div class="w3-cell w3-container w3-responsive w3-center w3-margin-bottom" style="max-width: 1000px;">
+            <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
+                <b>The results are in!</b> <br> We looked at 31 different attributes for each song you gave us. <br> <br> It looks like it makes sense to split your songs into {{ no_clusters }} playlists. <br> <br> You can explore these playlists, change
+                their name, and optionally save them straight to your spotify if you want! <br> <br>
+            </div>
 
-    </div>
+        </div>
 
-    {% for numb, playlist in ai_playlists.items() %}
-    <div class="w3-cell w3-container w3-responsive w3-half w3-round-xlarge" style="max-width: 500px;">
+        {% for numb, playlist in ai_playlists.items() %}
+        <div class="w3-cell w3-container w3-responsive w3-half w3-round-xlarge" style="max-width: 500px;">
 
-      <h3>AI Playlist: {{ numb + 1 }}</h3>
-      <p> {{ playlist['description']['no_tracks'] }} songs</p>
-      <ul class="w3-ul w3-card-4 w3-light-gray w3-round-xlarge">
-        {% for song in playlist['songs'] %}
-        <li class="w3-display-container">
-          <img src="{{ song['img'] }}" class="w3-round-large" style="width:20px;height:20px;margin-top:2px;" />
-          <div>
-            <span class="w3-medium">
+            <h3>AI Playlist: {{ numb + 1 }}</h3>
+            <p> {{ playlist['description']['no_tracks'] }} songs</p>
+            <ul class="w3-ul w3-card-4 w3-light-gray w3-round-xlarge">
+                {% for song in playlist['songs'] %}
+                <li class="w3-display-container">
+                    <img src="{{ song['img'] }}" class="w3-round-large" style="width:20px;height:20px;margin-top:2px;" />
+                    <div>
+                        <span class="w3-medium">
               <b>{{ song['track_name'] }}</b> <br></span>
-            <span>{{ song['artist_name'] }}</span>
+                        <span>{{ song['artist_name'] }}</span>
 
-            <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" loop></audio>
-            <i class="fas fa-play-circle" id="{{ song['preview_url'] }}-btn"
-              onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true" style="cursor:pointer;"></i>
+                        <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" loop></audio>
+                        <i class="fas fa-play-circle" id="{{ song['preview_url'] }}-btn" onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true" style="cursor:pointer;"></i>
 
 
-          </div>
-        </li>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
         {% endfor %}
-      </ul>
+
+
     </div>
-    {% endfor %}
-
-
-  </div>
 </div>
 {% endblock %}

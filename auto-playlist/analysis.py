@@ -122,6 +122,7 @@ def plot_clusters(songs_df):
     plt.figure(figsize=(30,30))
     plt.scatter(x_pca[:,0], x_pca[:,1], c=songs_df['cluster'], alpha=0.8)
     plt.savefig('temp-pca.png')
+    plt.close()
 
     return
 

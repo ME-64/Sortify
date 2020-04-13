@@ -130,14 +130,14 @@ def results():
 
         clean_tracks = analysis.clean_track_features(tracks)
         clustered_tracks = analysis.cluster_songs(clean_tracks)
-        analysis.plot_clusters(clustered_tracks)
+        # analysis.plot_clusters(clustered_tracks)
 
         no_clusters = clustered_tracks['cluster'].nunique()
 
         ai_playlists = analysis.get_ai_playlists(clustered_tracks)
 
 
-    return render_template('results_new.html')# no_clusters=no_clusters, ai_playlists=ai_playlists)
+    return render_template('results_new.html', no_clusters=no_clusters, ai_playlists=ai_playlists)
 
 
 
