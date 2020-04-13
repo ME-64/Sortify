@@ -14,6 +14,7 @@ import analysis
 
 from dotenv import load_dotenv
 load_dotenv(override=True)
+
 CLIENT_ID = os.environ['spotipy_client_id']
 CLIENT_SECRET = os.environ['spotipy_client_secret']
 SCOPE = 'user-library-read playlist-read-private playlist-modify-private user-read-private'
@@ -46,11 +47,11 @@ def login():
     # Find out what URL to hit for Google login
 
     request_uri = client.prepare_request_uri(
-        AUTH_BASE_URI,
-        redirect_uri=request.base_url + "/callback",
-        scope=SCOPE,
-        show_dialog=True
-    )
+            AUTH_BASE_URI,
+            redirect_uri=request.base_url + "/callback",
+            scope=SCOPE,
+            show_dialog=True
+            )
     return redirect(request_uri)
 
 
@@ -60,18 +61,18 @@ def callback():
     code = request.args.get("code")
     # Prepare and send a request to get tokens! Yay tokens!
     token_url, headers, body = client.prepare_token_request(
-        TOKEN_URI,
-        authorization_response=request.url,
-        redirect_url=request.base_url,
-        code=code
-    )
+            TOKEN_URI,
+            authorization_response=request.url,
+            redirect_url=request.base_url,
+            code=code
+            )
 
     token_response = requests.post(
-        token_url,
-        headers=headers,
-        data=body,
-        auth=(CLIENT_ID, CLIENT_SECRET),
-    )
+            token_url,
+            headers=headers,
+            data=body,
+            auth=(CLIENT_ID, CLIENT_SECRET),
+            )
 
     # Parse the tokens!
     client.parse_request_body_response(json.dumps(token_response.json()))

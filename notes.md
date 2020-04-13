@@ -1,4 +1,5 @@
 ### Realistic Tomorrow
+----------------------
 1. Correctly retrieve results from the form.
 2. Add outline of the algorithm selection steps from sklearn.
 3. Work out best way to put charts on the page
@@ -6,7 +7,7 @@
 
 
 ### TODO 
-***
+---------
 1. Implement pause of audio when another song is played
 5. Caching when reload of results page
 1. Work out heuristic for grid of clusters to search over
@@ -38,6 +39,7 @@
 - Overview of how good the cluster split was with PCA graph (3D)
 - General overview of their music taste
 - Submit button for once they're done with their preference
+
 - Each playlist is a collapsable card, with:
 1. Playlist Number
 2. Playlist Art Selected from Unsplash

@@ -24,7 +24,6 @@
       X, Y, and Z seem to be your favourite artists
     </div>
   </div>
-
 </div>
 
 <div class="border-top ml-0 mr-0 mt-3 mb-3 container-fluid"></div>
@@ -32,9 +31,18 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-header">
-      <a class="card-link" data-toggle="collapse" href="#collapseOne">
-        Collapsible Group Item #1
-      </a>
+      <div class="container">
+        <div class="row">
+          <div class="col-2">
+            <h2>#1</h2>
+          </div>
+          <div class="col-6">
+            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+              Collapsible Group Item #1
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="collapseOne" class="collapse show">
       <div class="card-body">
@@ -69,8 +77,5 @@
     </div>
   </div>
 </div>
-
-
-
 
 {% endblock %}
