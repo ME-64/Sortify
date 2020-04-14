@@ -1,59 +1,83 @@
 # Sortify - Automatically sort your spotify music
 --------------------------------------------
-*Sorify utilises unsupervised machine learning techniques to sort your music library*
+*Sorify utilises unsupervised machine learning techniques to sort your music library for you*
 
 ### Todo Per Page
 ----------------
 **Home Page**
-- Fix spacing for mobile displays
-- Fix NAV Bar to show meaningful links
-- Remove hyphen from the name
+- [ ] Fix spacing for mobile displays
+- [ ] Fix NAV Bar to show meaningful links
+- [ ] Fix NAV Bar 'burger' moving on mobile to the side
+- [ ] Fix vertical spacing of links at bottom on mobile
+- [X] Remove hyphen from the name
+- [ ] Change name of app on Spotify to reflect true name.
+- [ ] Change order of asked for user scopes (Maybe remove user-read-private?)
 
 **Selection Page**
-- Make the song names "..." change with the width of the container
-- Add the real user image where applicable to the leftside of title bar.
-- Add a description of the limitations on min and max songs
-- Give them the option to include / exclude their library
-- *Tweaks Section*
-   - Give them the option to sprinkle in additional songs we think they might like
-   - Change various attributes of the sort (?) Min/Max Playlist size
-   - "Advanced user" option to select the sorting algorithm
-- *Get Results*
-   - Make the button cleaner to look at
-   - Give them a progress bar as the button loads
-   - Give them the count of the number of songs currently selected
+- [ ] Center 1,2,3 stages on mobile ("select songs goes to two lines currently")
+- [ ] Increase padding on scrollable list to make it easier to circumnavigate
+- [ ] Make the song names "..." change with the width of the container
+- [ ] Add the real user image where applicable to the leftside of title bar.
+- [ ] Add a description of the limitations on min and max songs
+- [ ] Give them the option to include / exclude their library
+- [ ] *Tweaks Section*
+  - [ ] Give them the option to sprinkle in additional songs we think they might like
+  - [ ] Change various attributes of the sort (?) Min/Max Playlist size
+  - [ ] "Advanced user" option to select the sorting algorithm
+- [ ] *Get Results*
+  - [ ] Make the button cleaner to look at
+  - [ ] Give them a progress bar as the button loads
+  - [ ] Give them the count of the number of songs currently selected
 
 **Results Page**
-- Section at the top describing overall trends about someone's music library
-- Chart showing the seperation of the songs into the playlists (3D perhaps?)
-- Playlist Name better format, and as an input box that can be changed
-- songs moved to the left and with general attributes about playlist
-- Include button goes to TICK or CROSS
-- Better play / pause button and stop when other one is played / paused.
-- *Per Playlist*
-   - Attributes describing the playlist
+- [ ] Remove user icon on small screen viewport
+- [ ] "We found X unique playlists from your music collection"
+- [ ] Section at the top describing overall trends about someone's music library
+- [ ] *Top Charts*
+    - [ ] Remove cross and start from element selection.
+    - [ ] Mix up the colour - element combination, rather than linear
+    - [ ] Add breakdown by Artist Genre Pie Chart
+    - [ ] Add total song count
+    - [ ] Add most included genre
+- [ ] Chart showing the seperation of the songs into the playlists (3D perhaps?)
+- [ ] Playlist Name better format, and as an input box that can be changed
+- [ ] songs moved to the left and with general attributes about playlist
+- [ ] Include button goes to TICK or CROSS
+- [ ] Better play / pause button and stop when other one is played / paused.
+- [ ] *Per Playlist*
+   - [ ] Attributes describing the playlist
 
 **Done Page**
-- Thanks for using Sortify, feedback, restart etc
+- [ ] Thanks for using Sortify, feedback, restart etc
+
+
+**FAQ Page**
+- [ ] tbd
+
+**About Page**
+- [ ] tbd
 
 **Backend Work**
-- Load library on selection page for count of songs
-- Store a database of songs and their attributes for added similiarity?
-- Filter out playlists that aren't good enough
-- Compute general attributes about their music libraries
-- Generate playlist names based on the songs in the library
-- Generate playlist album covers from sortify
-- Database for event logging
-- Continous Integration / Deployment setup
-- Bonus year seperation playlist (?)
-- Dockerise the project
-- Better genre feature engineering
-- Caching of results on final page
+- [ ] Load library on selection page for count of songs
+- [ ] Store a database of songs and their attributes for added similiarity?
+- [ ] Filter out playlists that aren't good enough
+- [ ] Compute general attributes about their music libraries
+- [ ] Generate playlist names based on the songs in the library
+- [ ] Generate playlist album covers from sortify
+- [ ] Database for event logging
+- [ ] Continous Integration / Deployment setup
+- [ ] Bonus year seperation playlist (?)
+- [ ] Dockerise the project
+- [ ] Better genre feature engineering
+- [ ] Caching of results on final page
 
 **General Flask**
-- Handling of errors when not authenticated
-- Tests
-- Favicon
+- [ ] Handling of errors when not authenticated
+- [ ] Tests
+- [ ] Favicon
+
+**General Github**
+- [ ] Change repository name
 
 
 

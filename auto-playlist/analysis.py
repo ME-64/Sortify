@@ -127,7 +127,7 @@ def plot_clusters(songs_df):
     return
 
 
-def get_pca_vals(songs_df):
+def get_pca_chart_vals(songs_df):
     COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers', 'artist_popularity',
     'album_popularity', 'danceability','energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness',
     'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release',
@@ -141,8 +141,32 @@ def get_pca_vals(songs_df):
 
     songs_df['PCA_1'] = x_pca[:,0]
     songs_df['PCA_2'] = x_pca[:,1]
+    
+    clust = songs_df['cluster'].unique()
+    
+    clust = pd.DataFrame(clust, columns=['cluster'])
+    
+    numb = len(clust)
+    
+    els = set_elements(numb)
+    
+    clust['pointStyle'] = els[0]
+    clust['backgroundColor'] = els[1]
+    
+    songs_df = pd.merge(songs_df, clust, how='left', left_on='cluster', right_on='cluster', validate="m:1")
+    songs_df = songs_df.loc[:, ['track_name', 'artist_name', 'pointStyle', 'backgroundColor', 'PCA_1', 'PCA_2', 'cluster']]
+    
+    
+    clust_dict = {}
+    
+    for cluster in songs_df['cluster'].unique():
+        tmp = songs_df.loc[songs_df['cluster'] == cluster]
+        
+        clust_dict[cluster] = {}
+        clust_dict[cluster] = tmp.to_dict('r')
+    
+    return clust_dict
 
-    return songs_df
 
 
 
@@ -192,5 +216,25 @@ def get_ai_playlists(songs_df):
     return ai_playlist
 
 
-
+def set_elements(no_clusters):
+    """Function to define the pointStyle for chart.js based on number of clusters in total"""
+    
+    elements = ['circle', 'rect', 'triangle',  'star', 'crossRot', 'rectRounded', 'rectRot', 'dash', 'cross']
+    cols = ['rgba(107,0,0, 0.7)', 'rgba(0,64,64, 0.7)', 'rgba(0,86,0, 0.7)','rgba(212,28,28, 0.7)',
+           'rgba(17,127,127, 0.7)','rgba(22,169,22, 0.7)','rgba(212,111,28, 0.7)','rgba(9,140,9, 0.7)']
+    
+    all_elements = []
+    all_cols = []
+    
+    j = 0
+    for i in range(no_clusters):
+        if (i % 8 == 0) & (j != 0):
+            j = 0
+            
+        if len(all_elements) == no_clusters:
+            break
+        all_elements.append(elements[j])
+        all_cols.append(cols[j])
+        j += 1
+    return all_elements, all_cols
 

@@ -1,6 +1,9 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{% endblock%}
 
-
+{% block content %}
 <div class="container-fluid" style="background-color:#8ec07c;">
     <div class="row align-items-center p-1">
         <div class="col-9 text-xs-center text-sm-left">
@@ -19,6 +22,9 @@
         <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
             <b>The results are in!</b> <br> We looked at 31 different attributes for each song you gave us. <br> <br> It looks like it makes sense to split your songs into {{ no_clusters }} playlists. <br> <br> Before we dive into the playlists, here's
             some general stats about your music taste. <br> <br> Your favourite genre is: <br> X, Y, and Z seem to be your favourite artists
+            <div style="min-height:500px;">
+          <canvas id="myChart1"></canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -31,7 +37,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-5 align-self-center">
                 <button type="button" class="btn btn-link container-fluid text-left" data-toggle="collapse" data-target="#numb{{ numb }}" aria-controls="numb{{ numb }}" aria-expanded="false" style="max-width:600px">
-                        AI Playlist: {{ numb+1 }}
+                        AI Playlist: {{ numb }}
                 </button>
             </div>
             <div class="col-sm-5 align-self-center">
@@ -84,7 +90,7 @@
     </div>
 </div>
 {% endfor %}
-{% endblock %}
+
 
 
 <script>
@@ -105,3 +111,77 @@
         e.preventDefault();
     }); */
 </script>
+
+
+<script>
+    
+    
+var ctx1 = document.getElementById('myChart1').getContext('2d');
+var scatterChart1 = new Chart(ctx1, {
+  type: 'scatter',
+  data: {
+    labels: {
+          {% for numb, cluster in chart_data.items() %}
+    '{{ numb }}':
+        [{% for track in cluster %}
+        '{{ track['track_name'] }} by {{track['artist_name']}}',
+      {% endfor %} ],
+      {% endfor %}
+    },
+    datasets: [
+        
+        {% for numb, cluster in chart_data.items() %}
+            {label: '{{ numb }}',
+            backgroundColor: '{{ cluster[0]['backgroundColor'] }}',
+            pointStyle: '{{ cluster[0]['pointStyle'] }}',
+            pointHoverRadius: 8,
+            pointHitRadius: 4,
+            pointRadius:4,
+            data: [
+                {% for track in cluster %}
+                {
+                 x: {{ track['PCA_1'] }},
+                 y: {{ track['PCA_2'] }}
+                },
+                {% endfor %}
+            ]},
+        {% endfor %}
+        ]},
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        type: 'linear',
+        position: 'bottom',
+        gridLines: {display:true, drawBorder:true, drawOnChartArea:false, drawTicks:false},
+        ticks: {padding: 8},
+        scaleLabel: {display:true, labelString:'Principle Component 1'}
+      }],
+      yAxes: [{
+          type: 'linear',
+          position: 'left',
+          gridLines: {display:true, drawBorder:true, drawOnChartArea:false, drawTicks:false},
+          ticks: {padding: 8},
+          scaleLabel: {display:true, labelString:'Principle Component 2'}
+      }]
+    },
+    title: {display: true, text: '2-Dimensional Visualiation of your Library'},
+        legend: {display:true, position: 'top', labels: {usePointStyle:true}},
+            
+    tooltips: {
+        callbacks: {
+            label: function(tooltipItem, data) {
+                var label = data.labels[tooltipItem.datasetIndex][tooltipItem.index];
+                return label
+            },
+        },
+        backgroundColor: 'rgba(255,255,255,1)',
+        bodyFontColor: 'rgba(150,150,150,1)',
+        displayColors: false,
+    },
+  }
+});
+</script>
+
+{% endblock %}

@@ -2,6 +2,7 @@ import json
 import os
 import sqlite3
 import sys
+import collections
 
 import requests
 import spotipy
@@ -14,10 +15,10 @@ import functions2
 import analysis
 
 from dotenv import load_dotenv
-load_dotenv(override=True)
+# load_dotenv(override=True)
 
-CLIENT_ID = os.environ['spotipy_client_id']
-CLIENT_SECRET = os.environ['spotipy_client_secret']
+CLIENT_ID = 'b962565806ca4496996ae576320a957f'
+CLIENT_SECRET = '1d61927e4edc401e91fa6b350c089c7b'
 SCOPE = 'user-library-read playlist-read-private playlist-modify-private user-read-private'
 USERNAME = '1120649038'
 REDIRECT_URI = 'http://127.0.0.1:5000/callback'
@@ -136,16 +137,24 @@ def results():
         no_clusters = clustered_tracks['cluster'].nunique()
 
         ai_playlists = analysis.get_ai_playlists(clustered_tracks)
+        chart_data = analysis.get_pca_chart_vals(clustered_tracks)
+        
+        s_ai_playlists = collections.OrderedDict(sorted(ai_playlists.items()))
+        s_chart_data = collections.OrderedDict(sorted(chart_data.items()))
+        
+        
+        
 
 
-    return render_template('results_new.html', no_clusters=no_clusters, ai_playlists=ai_playlists)
+    return render_template('results_new.html', no_clusters=no_clusters, ai_playlists=s_ai_playlists, chart_data=s_chart_data)
 
 
 @app.route('/chart_test', methods=['GET', 'POST'])
 def chart_test():
     data = pd.read_csv('chart_test.csv')
+    playlists = analysis.get_pca_chart_vals(data)
 
-    return render_template('chart_test.html')
+    return render_template('chart_test.html', playlists=playlists)
 
 
 

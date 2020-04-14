@@ -5,39 +5,82 @@
 {% endblock%}
 
 {% block content %}
-<div>
+
+<div class="chart-container">
   <p>MY Paragraph</p>
-  <canvas id="myChart"></canvas>
+  <canvas id="myChart1"></canvas>
 </div>
 
+<!-- <div>
+    {{ playlists[0] }}
+</div> -->
+
+
 <script>
-  var ctx = document.getElementById('myChart').getContext('2d');
-var scatterChart = new Chart(ctx, {
+    
+    
+var ctx1 = document.getElementById('myChart1').getContext('2d');
+var scatterChart1 = new Chart(ctx1, {
   type: 'scatter',
   data: {
-    datasets: [{
-      label: 'Scatter Dataset',
-      data: [{
-        x: -6,
-        y: 6
-      }, {
-        x: 0,
-        y: 10
-      }, {
-        x: 10,
-        y: 5
-      },
-        {x: -8, y:10},
-      ]
-    }]
-  },
-  ons: {
+    labels: 
+      [{% for numb, cluster in playlists.items() %}
+        {% for track in cluster %}
+        ['{{ track['track_name'] }}', '{{track['artist_name']}}'],
+      {% endfor %}
+      {% endfor %}
+      ],
+    datasets: [
+        
+        {% for numb, cluster in playlists.items() %}
+            {label: {{ numb }},
+            backgroundColor: '{{ cluster[0]['backgroundColor'] }}',
+            pointStyle: '{{ cluster[0]['pointStyle'] }}',
+            pointHoverRadius: 8,
+            pointHitRadius: 4,
+            pointRadius:4,
+            data: [
+                {% for track in cluster %}
+                {
+                 x: {{ track['PCA_1'] }},
+                 y: {{ track['PCA_2'] }}
+                },
+                {% endfor %}
+            ]},
+        {% endfor %}
+        ]},
+  options: {
     scales: {
       xAxes: [{
         type: 'linear',
-        position: 'bottom'
+        position: 'bottom',
+        gridLines: {display:true, drawBorder:true, drawOnChartArea:false, drawTicks:false},
+        ticks: {padding: 8},
+        scaleLabel: {display:true, labelString:'Principle Component 1'}
+      }],
+      yAxes: [{
+          type: 'linear',
+          position: 'left',
+          gridLines: {display:true, drawBorder:true, drawOnChartArea:false, drawTicks:false},
+          ticks: {padding: 8},
+          scaleLabel: {display:true, labelString:'Principle Component 2'}
       }]
-    }
+    },
+    title: {display: true, text: '2-Dimensional Visualiation of your Library'},
+        legend: {display:true, position: 'right', labels: {usePointStyle:true, padding:20}},
+            
+    tooltips: {
+        callbacks: {
+            label: function(tooltipItem, data) {
+                var label = data.labels[tooltipItem.index][0];
+                var title = data.labels[tooltipItem.index][1]
+                return label + ' by ' + title;
+            },
+        },
+        backgroundColor: 'rgba(255,255,255,1)',
+        bodyFontColor: 'rgba(150,150,150,1)',
+        displayColors: false,
+    },
   }
 });
 </script>
