@@ -43,11 +43,7 @@ anl_df = clustered_tracks.loc[:, COLS]
 pca = make_pipeline(StandardScaler(), PCA(n_components=2))
 x_pca = pca.fit_transform(anl_df)
 
-
 clustered_tracks['PCA_1'] = x_pca[:,0]
 clustered_tracks['PCA_2'] = x_pca[:,1]
 
 clustered_tracks.head()
-
-
-
