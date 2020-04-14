@@ -127,6 +127,26 @@ def plot_clusters(songs_df):
     return
 
 
+def get_pca_vals(songs_df):
+    COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers', 'artist_popularity',
+    'album_popularity', 'danceability','energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness',
+    'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release',
+    'relpop_track_album', 'relpop_track_artist', 'relpop_album_artist', 'artist_jazz', 'artist_pop', 'artist_indie',
+    'artist_rock', 'artist_electro', 'artist_randb', 'artist_techno', 'artist_country']
+
+    anl_df = songs_df.loc[:, COLS]
+
+    pca = make_pipeline(StandardScaler(), PCA(n_components=2))
+    x_pca = pca.fit_transform(anl_df)
+
+    songs_df['PCA_1'] = x_pca[:,0]
+    songs_df['PCA_2'] = x_pca[:,1]
+
+    return songs_df
+
+
+
+
 def get_ai_playlists(songs_df):
     """Function to convert clustering results DF to sorted playlists in dictionary format"""
 
@@ -146,6 +166,13 @@ def get_ai_playlists(songs_df):
         no_tracks = tmp.shape[0]
         avg_pop = tmp['track_popularity'].mean()
         avg_year = int(tmp['release_year'].astype('int').mean())
+        avg_energy = tmp['energy'].mean() * 100
+        avg_dance = tmp['danceability'].mean() * 100
+        avg_inst = tmp['instrumentalness'].mean() * 100
+        avg_tempo = tmp['tempo'].mean()
+        avg_happi = tmp['valence'].mean() * 100
+
+
 
         tmp = tmp.loc[:, COLS]
 
@@ -154,7 +181,11 @@ def get_ai_playlists(songs_df):
             'avg_score': avg_score,
             'no_tracks': no_tracks,
             'avg_pop': avg_pop,
-            'avg_year': avg_year
+            'avg_energy': avg_energy,
+            'avg_dance': avg_dance,
+            'avg_inst': avg_inst,
+            'avg_tempo': avg_tempo,
+            'avg_happi': avg_happi,
         }
         ai_playlist[cluster]['songs'] = tmp.to_dict('r')
 

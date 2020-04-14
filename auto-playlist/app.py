@@ -8,6 +8,7 @@ import spotipy
 from flask import Flask, redirect, render_template, request, session, url_for
 from flask.json import jsonify
 from oauthlib.oauth2 import WebApplicationClient
+import pandas as pd
 
 import functions2
 import analysis
@@ -138,6 +139,14 @@ def results():
 
 
     return render_template('results_new.html', no_clusters=no_clusters, ai_playlists=ai_playlists)
+
+
+@app.route('/chart_test', methods=['GET', 'POST'])
+def chart_test():
+    data = pd.read_csv('chart_test.csv')
+
+    return render_template('chart_test.html')
+
 
 
 
