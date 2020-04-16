@@ -138,15 +138,13 @@ def results():
 
         ai_playlists = analysis.get_ai_playlists(clustered_tracks)
         chart_data = analysis.get_pca_chart_vals(clustered_tracks)
-        
+
         s_ai_playlists = collections.OrderedDict(sorted(ai_playlists.items()))
         s_chart_data = collections.OrderedDict(sorted(chart_data.items()))
-        
-        
-        
-
 
     return render_template('results_new.html', no_clusters=no_clusters, ai_playlists=s_ai_playlists, chart_data=s_chart_data)
+
+
 
 
 @app.route('/chart_test', methods=['GET', 'POST'])
@@ -155,8 +153,6 @@ def chart_test():
     playlists = analysis.get_pca_chart_vals(data)
 
     return render_template('chart_test.html', playlists=playlists)
-
-
 
 
 if __name__ == "__main__":
