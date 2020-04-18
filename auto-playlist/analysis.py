@@ -21,8 +21,8 @@ def clean_track_features(track_list):
     Returns
     -------
     df: pd.DataFrame
-        Cleaned output ready for analysis
-    """
+        Cleaned output ready for analysis"""
+
     df = pd.DataFrame(track_list)
     df.drop_duplicates(subset='track_uri', inplace=True)
     # filter out tracks that are new and yet to have feature analysis

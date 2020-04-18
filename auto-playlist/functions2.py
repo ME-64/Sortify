@@ -3,6 +3,7 @@ import re
 
 def current_user_saved_tracks(self, limit=20, offset=0, market=None):
     """Patch to allow spotipy to specify market for user's library"""
+    # pylint: disable=protected-access
     return self._get("me/tracks", limit=limit, offset=offset, market=market)
 
 
@@ -23,7 +24,7 @@ def get_user_information(spotify_object):
         details['image'] = 'https://www.gravatar.com/avatar/?d=mm'
         # details['image'] = None
 
-    details['country'] = result['country']
+    # details['country'] = result['country']
 
     return details
 
@@ -83,7 +84,9 @@ def get_playlist_tracks(playlist_ids, spotify_object, market=None):
                    'album_uri': song['track']['album']['uri'],
                    'album_type': song['track']['album']['album_type'],
                    'album_name': song['track']['album']['name'],
-                   'img': song['track']['album']['images'][0]['url'] if len(song['track']['album']['images']) > 0 else None,
+                   'img': (song['track']['album']['images'][0]['url']
+                           if len(song['track']['album']['images']) > 0
+                           else None),
                    'track_name': song['track']['name'],
                    'release_date': song['track']['album']['release_date'],
                    'release_date_precision': song['track']['album']['release_date_precision'],
@@ -95,7 +98,7 @@ def get_playlist_tracks(playlist_ids, spotify_object, market=None):
                    }
             try:
                 tmp['album_total_tracks'] = song['track']['album']['total_tracks']
-            except:
+            except KeyError:
                 tmp['album_total_tracks'] = 1
 
             tracks.append(tmp)
@@ -107,7 +110,9 @@ def get_playlist_tracks(playlist_ids, spotify_object, market=None):
                        'album_uri': song['track']['album']['uri'],
                        'album_type': song['track']['album']['album_type'],
                        'album_name': song['track']['album']['name'],
-                       'img': song['track']['album']['images'][0]['url'] if len(song['track']['album']['images']) > 0 else None,
+                       'img': (song['track']['album']['images'][0]['url']
+                               if len(song['track']['album']['images']) > 0
+                               else None),
                        'track_name': song['track']['name'],
                        'release_date': song['track']['album']['release_date'],
                        'release_date_precision': song['track']['album']['release_date_precision'],
@@ -119,12 +124,11 @@ def get_playlist_tracks(playlist_ids, spotify_object, market=None):
                        }
                 try:
                     tmp['album_total_tracks'] = song['track']['album']['total_tracks']
-                except:
+                except KeyError:
                     tmp['album_total_tracks'] = 1
 
                 tracks.append(tmp)
-    tracks = [track for track in tracks if track['track_uri']
-              [8:13] not in ['local', 'episo']]
+    tracks = [track for track in tracks if track['track_uri'][8:13] not in ['local', 'episo']]
 
     return tracks
 
@@ -193,7 +197,6 @@ def get_artists_features(artist_ids, spotify_object):
 
 
 def get_tracks_features(track_ids, spotify_object):
-    # import pdb; pdb.set_trace()
     if isinstance(track_ids, str):
         raise TypeError
 
@@ -291,7 +294,10 @@ def get_all_track_features_from_playlists(playlist_ids, spotify_object, market=N
     artist_features = get_artists_features(artist_ids, spotify_object)
     album_features = get_albums_features(album_ids, spotify_object)
 
-    for track, artist, album, track_more in zip(tracks, artist_features, album_features, track_features):
+
+    combined_features = zip(tracks, artist_features, album_features, track_features)
+
+    for track, artist, album, track_more in combined_features:
         track.update(artist)
         track.update(album)
         track.update(track_more)

@@ -1,21 +1,22 @@
 # Sortify - Automatically sort your spotify music
 --------------------------------------------
+
 *Sorify utilises unsupervised machine learning techniques to sort your music library for you*
 
 ### Todo Per Page
 ----------------
+
 **Home Page**
-- [ ] Fix spacing for mobile displays
-- [ ] Fix NAV Bar to show meaningful links
-- [ ] Fix NAV Bar 'burger' moving on mobile to the side
-- [ ] Fix vertical spacing of links at bottom on mobile
+- [X] Fix spacing for mobile displays
+- [X] Fix NAV Bar to show meaningful links
+- [X] Fix vertical spacing of links at bottom on mobile
 - [X] Remove hyphen from the name
-- [ ] Change name of app on Spotify to reflect true name.
-- [ ] Change order of asked for user scopes (Maybe remove user-read-private?)
+- [X] Change name of app on Spotify to reflect true name.
+- [X] Change order of asked for user scopes (Maybe remove user-read-private?)
 
 **Selection Page**
-- [ ] Center 1,2,3 stages on mobile ("select songs goes to two lines currently")
-- [ ] Increase padding on scrollable list to make it easier to circumnavigate
+- [X] Center 1,2,3 stages on mobile ("select songs goes to two lines currently")
+- [X] Increase padding on scrollable list to make it easier to circumnavigate
 - [ ] Make the song names "..." change with the width of the container
 - [ ] Add the real user image where applicable to the leftside of title bar.
 - [ ] Add a description of the limitations on min and max songs
@@ -74,10 +75,10 @@
 **General Flask**
 - [ ] Handling of errors when not authenticated
 - [ ] Tests
-- [ ] Favicon
+- [X] Favicon
 
 **General Github**
-- [ ] Change repository name
+- [X] Change repository name
 
 
 

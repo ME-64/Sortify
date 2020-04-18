@@ -13,7 +13,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
 
     <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"
+        crossorigin="anonymous"></script>
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
@@ -21,9 +22,11 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='audio.js') }}" crossorigin="anonymous">
     </script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
     <!-- enable bootstrap tooltips-->
     <script>
-        $(function() {
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
@@ -37,57 +40,60 @@
             <a class="navbar-brand" href=" {{ url_for('index') }}">
                 <i class="fab d-inline fa-lg fa-spotify mr-2"></i>
                 <b class="">Sortify for Spotify<b>
-      </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse"
-        data-target="#navbar10">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar10">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">Other</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#">FAQ</a> </li>
-        </ul> <a class="btn navbar-btn ml-md-2 btn-light text-dark" src="https://www.github.com/ME-64/">Source Code</a>
-      </div>
-    </div>
-  </nav>
-  {% block content %}
-  {% endblock %}
-
-  <footer class="page-footer py-5 pt-4 bg-dark text-white">
-    <div class="container">
-      <div class="row align-items-center justify-content-center">
-        <div class="col-sm-4 text-center">
-          <a href="https://www.github.com/ME-64/" target="_blank">
-            <i class="fa fa-fw fa-github text-muted fa-2x"></i>
-          </a>
-          <p><a class="text-white" href="htts://www.github.com/ME-64/" target="_blank">View source on GitHub</a></p>
+            </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse"
+                data-target="#navbar10">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar10">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"> <a class="nav-link" href="{{ url_for('about') }}">About</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ url_for('faq') }}">FAQ</a> </li>
+                </ul> <a class="btn navbar-btn ml-md-2 btn-light text-dark" src="https://www.github.com/ME-64/">Source
+                    Code</a>
+            </div>
         </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
 
-        <div class="col-sm-4 text-center">
-          <a href="https://www.linkedin.com/in/milo-elliott-663067110/" target="_blank">
-            <i class="fab fa-fw fa-linkedin text-muted fa-2x"></i>
-          </a>
-          <p><a class="text-white" href="https://www.linkedin.com/in/milo-elliott-663067110/" target="_blank">Connect
-              with me on LinkedIn</a></p>
-        </div>
+    <footer class="page-footer py-5 pt-4 bg-dark text-white">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-sm-4 text-center">
+                    <a href="https://www.github.com/ME-64/" target="_blank">
+                        <i class="fa fa-fw fa-github text-muted fa-2x"></i>
+                    </a>
+                    <p><a class="text-white" href="htts://www.github.com/ME-64/" target="_blank">View source on
+                            GitHub</a></p>
+                </div>
 
-        <div class="col-sm-4 text-center">
-          <a href="mailto:miloelliott64@gmail.com" target="_blank">
-            <i class="fa fa-fw fa-paper-plane text-muted fa-2x"></i>
-          </a>
-          <p><a class="text-white" href="mailto:miloelliott64@gmail.com" target="_blank">Drop me a line</a></p>
-        </div>
-      </div>
+                <div class="col-sm-4 text-center">
+                    <a href="https://www.linkedin.com/in/milo-elliott-663067110/" target="_blank">
+                        <i class="fab fa-fw fa-linkedin text-muted fa-2x"></i>
+                    </a>
+                    <p><a class="text-white" href="https://www.linkedin.com/in/milo-elliott-663067110/"
+                            target="_blank">Connect
+                            with me on LinkedIn</a></p>
+                </div>
 
-      <div class="row align-items-end pb-0 mb-0 pt-3">
-        <div class="col-12 text-center pb-0 mb-0">
-          <div class="footer-copyright text-center text-small" style="font-size:10pt;">© Copyright 2020:
-            <a href="https://www.olim.ai/" class="text-white" target="_blank">Milo Elliott</a>
-          </div>
+                <div class="col-sm-4 text-center">
+                    <a href="mailto:miloelliott64@gmail.com" target="_blank">
+                        <i class="fa fa-fw fa-paper-plane text-muted fa-2x"></i>
+                    </a>
+                    <p><a class="text-white" href="mailto:miloelliott64@gmail.com" target="_blank">Drop me a line</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row align-items-end pb-0 mb-0 pt-3">
+                <div class="col-12 text-center align-items-end pb-0 mb-0">
+                    <div class="footer-copyright text-center text-small" style="font-size:10pt;">© Copyright 2020:
+                        <a href="https://www.olim.ai/" class="text-white" target="_blank">Milo Elliott</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer>
+    </footer>
 </body>
 
 </html>

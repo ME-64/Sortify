@@ -1,25 +1,25 @@
 import json
 import os
-import sqlite3
-import sys
+# import sqlite3
+# import sys
 import collections
 
 import requests
 import spotipy
 from flask import Flask, redirect, render_template, request, session, url_for
-from flask.json import jsonify
+# from flask.json import jsonify
 from oauthlib.oauth2 import WebApplicationClient
 import pandas as pd
+from dotenv import load_dotenv
 
 import functions2
 import analysis
 
-from dotenv import load_dotenv
-# load_dotenv(override=True)
+load_dotenv(override=True)
 
-CLIENT_ID = 'b962565806ca4496996ae576320a957f'
-CLIENT_SECRET = '1d61927e4edc401e91fa6b350c089c7b'
-SCOPE = 'user-library-read playlist-read-private playlist-modify-private user-read-private'
+CLIENT_ID = os.environ['spotipy_client_id']
+CLIENT_SECRET = os.environ['spotipy_client_secret']
+SCOPE = 'user-library-read playlist-read-private playlist-modify-private'
 USERNAME = '1120649038'
 REDIRECT_URI = 'http://127.0.0.1:5000/callback'
 AUTH_BASE_URI = 'https://accounts.spotify.com/authorize'
@@ -49,11 +49,11 @@ def login():
     # Find out what URL to hit for Google login
 
     request_uri = client.prepare_request_uri(
-            AUTH_BASE_URI,
-            redirect_uri=request.base_url + "/callback",
-            scope=SCOPE,
-            show_dialog=True
-            )
+        AUTH_BASE_URI,
+        redirect_uri=request.base_url + "/callback",
+        scope=SCOPE,
+        show_dialog=True
+        )
     return redirect(request_uri)
 
 
@@ -61,20 +61,16 @@ def login():
 def callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
-    # Prepare and send a request to get tokens! Yay tokens!
-    token_url, headers, body = client.prepare_token_request(
-            TOKEN_URI,
-            authorization_response=request.url,
-            redirect_url=request.base_url,
-            code=code
-            )
+    # Prepare and send a request to get tokens!
+    token_url, headers, body = client.prepare_token_request(TOKEN_URI,
+                                                            authorization_response=request.url,
+                                                            redirect_url=request.base_url,
+                                                            code=code)
 
-    token_response = requests.post(
-            token_url,
-            headers=headers,
-            data=body,
-            auth=(CLIENT_ID, CLIENT_SECRET),
-            )
+    token_response = requests.post(token_url,
+                                   headers=headers,
+                                   data=body,
+                                   auth=(CLIENT_ID, CLIENT_SECRET))
 
     # Parse the tokens!
     client.parse_request_body_response(json.dumps(token_response.json()))
@@ -90,11 +86,11 @@ def selection():
     playlists = functions2.get_user_playlists(sp)
     playlists = playlists[0:]
     for playlist in playlists:
-        if len(playlist['name']) >20:
+        if len(playlist['name']) > 20:
             playlist['name'] = playlist['name'][0:17] + '...'
 
         if len(playlist['desc']) > 80:
-            playlist['desc'] = playlist['desc'][0:78] + '...'
+            playlist['desc'] = playlist['desc'][0:77] + '...'
 
     playlists = [playlist for playlist in playlists if playlist['tracks'] > 0]
 
@@ -107,10 +103,14 @@ def selection():
         user = 'Milo'
 
     img = details['image']
-    session['country'] = details['country']
+    # session['country'] = details['country']
 
     library_tracks = 231
-    return render_template('selection_new.html', playlists=playlists, user=user, library_tracks=library_tracks, img=img)
+    return render_template('selection_new.html',
+                           playlists=playlists,
+                           user=user,
+                           library_tracks=library_tracks,
+                           img=img)
 
 
 @app.route('/results', methods=['GET', 'POST'])
@@ -118,16 +118,19 @@ def results():
     if request.method == 'POST':
         checks = request.form.getlist('checks')
         session['checks'] = checks.copy()
-        print(checks,flush=True)
+        # print(checks, flush=True)
         sp = spotipy.Spotify(auth=session['token']['access_token'])
 
         tracks = []
 
-        library = functions2.get_all_track_features_from_playlists('library', sp, session['country'])
+        library = functions2.get_all_track_features_from_playlists('library',
+                                                                   sp,
+                                                                   'GB')
+
         tracks.extend(library)
 
         if len(checks) > 0:
-            tmp = functions2.get_all_track_features_from_playlists(checks, sp, session['country'])
+            tmp = functions2.get_all_track_features_from_playlists(checks, sp, 'GB')
             tracks.extend(tmp)
 
         clean_tracks = analysis.clean_track_features(tracks)
@@ -142,7 +145,10 @@ def results():
         s_ai_playlists = collections.OrderedDict(sorted(ai_playlists.items()))
         s_chart_data = collections.OrderedDict(sorted(chart_data.items()))
 
-    return render_template('results_new.html', no_clusters=no_clusters, ai_playlists=s_ai_playlists, chart_data=s_chart_data)
+    return render_template('results_new.html',
+                           no_clusters=no_clusters,
+                           ai_playlists=s_ai_playlists,
+                           chart_data=s_chart_data)
 
 
 
@@ -153,6 +159,20 @@ def chart_test():
     playlists = analysis.get_pca_chart_vals(data)
 
     return render_template('chart_test.html', playlists=playlists)
+
+@app.route('/about')
+def about():
+
+    return render_template('about.html')
+
+@app.route('/faq')
+def faq():
+
+    return render_template('faq.html')
+
+
+
+
 
 
 if __name__ == "__main__":
