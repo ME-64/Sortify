@@ -11,7 +11,12 @@
         </div>
 
         <div class="col-3 text-right">
-            <i class="fas fa-user fa-2x text-muted"></i>
+            {% if img is not none %}
+                <img src="{{ img }}" alt="User Image" class="rounded img-fluid"
+                    style="width: 50px;height: 50px;">
+            {% else %}
+                <i class="fas fa-user fa-2x text-muted"></i>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -77,8 +82,8 @@
                             {{ song['track_name'] }} - {{ song['artist_name']}}
                         </div>
                         <div>
-                            <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" loop></audio>
-                            <i class="fas fa-play-circle" id="{{ song['preview_url'] }}-btn" onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true" style="cursor:pointer;"></i>
+                            <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" preload="none" onplay="pauseOthers(this);"></audio>
+                            <i class="fas fa-volume" id="{{ song['preview_url'] }}-btn" onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true" style="cursor:pointer;"></i>
                         </div>
 
                     </div>
@@ -114,7 +119,11 @@
 
 
 <script>
-    
+    function pauseOthers(ele) {
+        $("audio").not(ele).each(function (index, audio) {
+            audio.pause();
+        });
+    }
     
 var ctx1 = document.getElementById('myChart1').getContext('2d');
 var scatterChart1 = new Chart(ctx1, {

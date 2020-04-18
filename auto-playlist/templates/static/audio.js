@@ -4,19 +4,27 @@ function playPause(ele, but) {
     if (myVideo.paused) {
       myVideo.play();
       // but.innerHTML = "Pause";
-      if (but.classList.contains('fa-play-circle')) {
-          but.classList.toggle('fa-play-circle')
-        but.classList.add('fa-pause-circle')
-      }
-      else {
-          but.classList.add('fa-pause-circle')
-      }
+      // if (but.classList.contains('fa-play-circle')) {
+      //     // but.classList.toggle('fa-play-circle')
+      //   // but.classList.add('fa-pause-circle')
+      // }
+      // else {
+      //     // but.classList.add('fa-pause-circle')
+      // }
   
       }
     else { 
       myVideo.pause();
       // but.innerHTML = "Play";
-      but.classList.remove('fa-pause-circle');
-      but.classList.add('fa-play-circle');
+      // but.classList.remove('fa-pause-circle');
+      // but.classList.add('fa-play-circle');
       }
   } 
+
+
+    function pauseOthers(ele) {
+        $("audio").not(ele).each(function (index, audio) {
+            audio.pause();
+            console.log(audio.childNodes);
+        });
+    }

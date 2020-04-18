@@ -106,6 +106,7 @@ def selection():
     # session['country'] = details['country']
 
     library_tracks = 231
+    library_tracks = functions2.get_user_library_song_count(sp)
     return render_template('selection_new.html',
                            playlists=playlists,
                            user=user,
@@ -118,16 +119,17 @@ def results():
     if request.method == 'POST':
         checks = request.form.getlist('checks')
         session['checks'] = checks.copy()
-        # print(checks, flush=True)
+        print(checks, flush=True)
         sp = spotipy.Spotify(auth=session['token']['access_token'])
 
         tracks = []
+        if 'library' in checks:
+            library = functions2.get_all_track_features_from_playlists('library',
+                                                                        sp,
+                                                                        'GB')
+            tracks.extend(library)
+            checks.remove('library')
 
-        library = functions2.get_all_track_features_from_playlists('library',
-                                                                   sp,
-                                                                   'GB')
-
-        tracks.extend(library)
 
         if len(checks) > 0:
             tmp = functions2.get_all_track_features_from_playlists(checks, sp, 'GB')
@@ -145,10 +147,15 @@ def results():
         s_ai_playlists = collections.OrderedDict(sorted(ai_playlists.items()))
         s_chart_data = collections.OrderedDict(sorted(chart_data.items()))
 
+    details = functions2.get_user_information(sp)
+
+    img = details['image']
+
     return render_template('results_new.html',
                            no_clusters=no_clusters,
                            ai_playlists=s_ai_playlists,
-                           chart_data=s_chart_data)
+                           chart_data=s_chart_data,
+                           img=img)
 
 
 

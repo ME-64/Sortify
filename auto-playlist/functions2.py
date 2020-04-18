@@ -21,8 +21,8 @@ def get_user_information(spotify_object):
         details['image'] = result['images'][2]['url']
     else:
         # stock user image
-        details['image'] = 'https://www.gravatar.com/avatar/?d=mm'
-        # details['image'] = None
+        # details['image'] = 'https://www.gravatar.com/avatar/?d=mm'
+        details['image'] = None
 
     # details['country'] = result['country']
 
@@ -63,6 +63,17 @@ def get_user_playlists(spotify_object):
     for playlist in playlists:
         playlist['desc'] = remove_html_tags(playlist['desc'])
     return playlists
+
+
+def get_user_library_song_count(spotify_object):
+    result = spotify_object.current_user_saved_tracks(market='GB')
+    cnt = len(result['items'])
+
+    while result['next']:
+        result = spotify_object.next(result)
+        cnt = cnt + len(result['items'])
+
+    return cnt
 
 
 def get_playlist_tracks(playlist_ids, spotify_object, market=None):

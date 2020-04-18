@@ -18,7 +18,7 @@
 - [X] Center 1,2,3 stages on mobile ("select songs goes to two lines currently")
 - [X] Increase padding on scrollable list to make it easier to circumnavigate
 - [ ] Make the song names "..." change with the width of the container
-- [ ] Add the real user image where applicable to the leftside of title bar.
+- [X] Add the real user image where applicable to the leftside of title bar.
 - [ ] Add a description of the limitations on min and max songs
 - [ ] Give them the option to include / exclude their library
 - [ ] *Tweaks Section*
@@ -26,12 +26,13 @@
   - [ ] Change various attributes of the sort (?) Min/Max Playlist size
   - [ ] "Advanced user" option to select the sorting algorithm
 - [ ] *Get Results*
-  - [ ] Make the button cleaner to look at
+  - [X] Make the button cleaner to look at
   - [ ] Give them a progress bar as the button loads
   - [ ] Give them the count of the number of songs currently selected
 
 **Results Page**
 - [ ] Remove user icon on small screen viewport
+- [ ] Only preload the first few songs of each playlist
 - [ ] "We found X unique playlists from your music collection"
 - [ ] Section at the top describing overall trends about someone's music library
 - [ ] *Top Charts*

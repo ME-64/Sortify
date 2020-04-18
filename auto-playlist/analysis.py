@@ -76,9 +76,11 @@ def clean_track_features(track_list):
 
 
 def cluster_songs(songs_df):
-    COLS = ['explicit', 'track_popularity', 'danceability', 'energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness',
-            'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month',
-            'artist_jazz', 'artist_pop', 'artist_indie', 'artist_rock', 'artist_electro', 'artist_randb', 'artist_techno', 'artist_country']
+    COLS = ['explicit', 'track_popularity', 'danceability', 'energy', 'key', 'loudness',
+            'mode', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
+            'time_signature', 'release_year', 'release_month', 'artist_jazz', 'artist_pop',
+            'artist_indie', 'artist_rock', 'artist_electro', 'artist_randb',
+            'artist_techno', 'artist_country']
 
     NO_SONGS = songs_df.shape[0]
 
@@ -113,11 +115,13 @@ def cluster_songs(songs_df):
 
 
 def plot_clusters(songs_df):
-    COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers', 'artist_popularity',
-            'album_popularity', 'danceability', 'energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness',
-            'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release',
-            'relpop_track_album', 'relpop_track_artist', 'relpop_album_artist', 'artist_jazz', 'artist_pop', 'artist_indie',
-            'artist_rock', 'artist_electro', 'artist_randb', 'artist_techno', 'artist_country']
+    COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers',
+            'artist_popularity', 'album_popularity', 'danceability', 'energy', 'key',
+            'loudness', 'mode', 'acousticness', 'instrumentalness', 'liveness', 'valence',
+            'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release',
+            'relpop_track_album', 'relpop_track_artist', 'relpop_album_artist', 'artist_jazz',
+            'artist_pop', 'artist_indie', 'artist_rock', 'artist_electro', 'artist_randb',
+            'artist_techno', 'artist_country']
 
     anl_df = songs_df.loc[:, COLS]
 
@@ -129,15 +133,16 @@ def plot_clusters(songs_df):
     plt.savefig('temp-pca.png')
     plt.close()
 
-    return
 
 
 def get_pca_chart_vals(songs_df):
-    COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers', 'artist_popularity',
-            'album_popularity', 'danceability', 'energy', 'key', 'loudness', 'mode', 'acousticness', 'instrumentalness',
-            'liveness', 'valence', 'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release',
-            'relpop_track_album', 'relpop_track_artist', 'relpop_album_artist', 'artist_jazz', 'artist_pop', 'artist_indie',
-            'artist_rock', 'artist_electro', 'artist_randb', 'artist_techno', 'artist_country']
+    COLS = ['explicit', 'track_popularity', 'album_total_tracks', 'artist_followers',
+            'artist_popularity', 'album_popularity', 'danceability', 'energy', 'key',
+            'loudness', 'mode', 'acousticness', 'instrumentalness', 'liveness', 'valence',
+            'tempo', 'time_signature', 'release_year', 'release_month', 'days_since_release',
+            'relpop_track_album', 'relpop_track_artist', 'relpop_album_artist', 'artist_jazz',
+            'artist_pop', 'artist_indie', 'artist_rock', 'artist_electro', 'artist_randb',
+            'artist_techno', 'artist_country']
 
     anl_df = songs_df.loc[:, COLS]
 
@@ -221,8 +226,8 @@ def get_ai_playlists(songs_df):
 def set_elements(no_clusters):
     """Function to define the pointStyle for chart.js based on number of clusters in total"""
 
-    elements = ['circle', 'rect', 'triangle',  'star',
-                'crossRot', 'rectRounded', 'rectRot', 'dash', 'cross']
+    elements = ['circle', 'circle', 'circle',  'circle',
+                'circle', 'circle', 'circle', 'circle', 'circle']
     cols = ['rgba(107,0,0, 0.7)', 'rgba(0,64,64, 0.7)', 'rgba(0,86,0, 0.7)', 'rgba(212,28,28, 0.7)',
             'rgba(17,127,127, 0.7)', 'rgba(22,169,22, 0.7)', 'rgba(212,111,28, 0.7)', 'rgba(9,140,9, 0.7)']
 
