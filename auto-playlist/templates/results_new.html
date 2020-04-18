@@ -6,17 +6,8 @@
 {% block content %}
 <div class="container-fluid" style="background-color:#8ec07c;">
     <div class="row align-items-center p-1">
-        <div class="col-9 text-xs-center text-sm-left">
+        <div class="col-12 text-xs-center text-sm-left">
             <h2 class="m-2 tx-xs-center text-sm-left text-white">Your personalised <em>Sortify</em> is ready</h2>
-        </div>
-
-        <div class="col-3 text-right">
-            {% if img is not none %}
-                <img src="{{ img }}" alt="User Image" class="rounded img-fluid"
-                    style="width: 50px;height: 50px;">
-            {% else %}
-                <i class="fas fa-user fa-2x text-muted"></i>
-            {% endif %}
         </div>
     </div>
 </div>
@@ -83,7 +74,7 @@
                         </div>
                         <div>
                             <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" preload="none" onplay="pauseOthers(this);"></audio>
-                            <i class="fas fa-volume" id="{{ song['preview_url'] }}-btn" onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true" style="cursor:pointer;"></i>
+                            <i class="fas fa-volume-up" id="{{ song['preview_url'] }}-btn" onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true" style="cursor:pointer;"></i>
                         </div>
 
                     </div>

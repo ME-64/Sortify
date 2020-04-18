@@ -8,10 +8,9 @@
 
         <div class="col-3 text-right">
             {% if img is not none %}
-                <img src="{{ img }}" alt="User Image" class="rounded img-fluid"
-                    style="width: 50px;height: 50px;">
+            <img src="{{ img }}" alt="User Image" class="rounded img-fluid" style="width: 50px;height: 50px;">
             {% else %}
-                <i class="fas fa-user fa-2x text-muted"></i>
+            <i class="fas fa-user fa-2x text-muted"></i>
             {% endif %}
         </div>
     </div>
@@ -47,7 +46,7 @@
 
     <div class="tab-content">
         <div id="home" class="tab-pane container active mb-4">
-            <p>Select the songs you want to be included in the sort. Don't worry, we never modify your existing
+            <p>Select the songs you want to be included in the sort. Don't worry, we never mess with your existing
                 playlists or library</p>
             <ul class="list-group border rounded ml-1 mr-2" style="max-height: 75vh;min-height:600px; overflow: auto;">
 
@@ -59,14 +58,16 @@
                 <form method="POST" id="form1">
                     <li class="list-group-item">
                         <div data-toggle="buttons">
-                            <label class="btn container-fluid p-0 m-1" name="checks" type="button">
-                                <input id="library" value="library"
-                                    type="checkbox" data-toggle="button" name="checks" style="display: none;"
-                                    autocomplete="off">
+                            <label class="btn container-fluid p-0 m-1 btn-grey" name="checks" type="button">
+                                <input id="library" value="library" type="checkbox" data-toggle="button" name="checks"
+                                    style="display: none;" autocomplete="off" checked>
                                 <div class="row justify-content-center text-center text-md-left">
                                     <div class="col-sm-4 col-md-2 align-self-center p-1">
-                                        <img src="" alt="Playlist Image" class="rounded img-fluid"
-                                            style="width: 50px;height: 50px;">
+                                        <span>
+                                            <i class="fas fa-record-vinyl fa-3x text-secondary text-center"></i>
+                                        </span>
+                                        <!-- <img src="" alt="Playlist Image" class="rounded img-fluid" -->
+                                        <!--     style="width: 50px;height: 50px;"> -->
                                     </div>
                                     <div class="col-sm-8 col-md-4 align-self-center p-1 text-dark">
                                         <h6 class="text-dark font-weight-bold">Saved music</h6>
@@ -113,7 +114,7 @@
         <div id="menu2" class="tab-pane container fade">
             <p>Click to begin the sort and we'll do the rest</p>
             <p class="text-center mt-4" style="min-height: 600px;">
-                <button class="btn btn-success btn-hover btn-lg btn-block" type="submit" form="form1"
+                <button class="btn btn-success btn-hover btn-lg btn-block" id="sub-but" type="button" form="form1"
                     formaction="{{ url_for('results') }}">
                     <span class="h4 font-weight-bold m-0">Let's Go!</span>
                 </button>
@@ -124,6 +125,19 @@
 </div>
 
 <script>
+
+    $(document).ready(function () {
+        $("#sub-but").click(function () {
+            // disable button
+            $(this).prop("disabled", true);
+            // add spinner to button
+            $(this).html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+            );
+        });
+    });
+
+
     $('[data-toggle="buttons"] .btn').on('click', function () {
         // toggle style
         $(this).toggleClass('btn-grey active');

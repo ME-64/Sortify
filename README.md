@@ -17,10 +17,11 @@
 **Selection Page**
 - [X] Center 1,2,3 stages on mobile ("select songs goes to two lines currently")
 - [X] Increase padding on scrollable list to make it easier to circumnavigate
-- [ ] Make the song names "..." change with the width of the container
+- [X] Make the song names "..." change with the width of the container
 - [X] Add the real user image where applicable to the leftside of title bar.
 - [ ] Add a description of the limitations on min and max songs
 - [ ] Give them the option to include / exclude their library
+- [ ] Sort the playlists owned by the current user first
 - [ ] *Tweaks Section*
   - [ ] Give them the option to sprinkle in additional songs we think they might like
   - [ ] Change various attributes of the sort (?) Min/Max Playlist size
@@ -31,8 +32,8 @@
   - [ ] Give them the count of the number of songs currently selected
 
 **Results Page**
-- [ ] Remove user icon on small screen viewport
-- [ ] Only preload the first few songs of each playlist
+- [X] Remove user icon on small screen viewport
+- [X] Only preload the first few songs of each playlist
 - [ ] "We found X unique playlists from your music collection"
 - [ ] Section at the top describing overall trends about someone's music library
 - [ ] *Top Charts*
@@ -45,7 +46,7 @@
 - [ ] Playlist Name better format, and as an input box that can be changed
 - [ ] songs moved to the left and with general attributes about playlist
 - [ ] Include button goes to TICK or CROSS
-- [ ] Better play / pause button and stop when other one is played / paused.
+- [X] Better play / pause button and stop when other one is played / paused.
 - [ ] *Per Playlist*
    - [ ] Attributes describing the playlist
 
@@ -82,11 +83,23 @@
 - [X] Change repository name
 
 
+**Algo Settings & Options**
+-----------------------
+
+- Add a few additional songs to the playlists that fit the vibe
+- Sliding scale of playlist size 20-100 songs
+- Show me the best playlists
+
+
+
 
 
 # Spotify Features Dictionary
--------------------------------
+
+-----------------------------
+
 ##### From the Audio Feature Endpoint
+
 `duration_ms`: Duration of the track in milliseconds
 
 `key`: Estimated overall key of the track. Integers map to pitches using Pitch Class

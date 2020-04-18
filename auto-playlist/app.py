@@ -28,7 +28,6 @@ USER_API = 'https://api.spotify.com/v1/me'
 
 
 # Patching spotipy
-
 setattr(spotipy.Spotify, 'current_user_saved_tracks', functions2.current_user_saved_tracks)
 
 
@@ -41,6 +40,7 @@ client = WebApplicationClient(client_id=CLIENT_ID)
 
 @app.route("/")
 def index():
+    session['results'] = False
     return render_template('home.html')
 
 
@@ -82,12 +82,15 @@ def callback():
 
 @app.route('/selection', methods=['GET'])
 def selection():
+    if session['results'] == True:
+        redirect(url_for('home'))
+
     sp = spotipy.Spotify(auth=session['token']['access_token'])
     playlists = functions2.get_user_playlists(sp)
     playlists = playlists[0:]
     for playlist in playlists:
-        if len(playlist['name']) > 20:
-            playlist['name'] = playlist['name'][0:17] + '...'
+        if len(playlist['name']) > 30:
+            playlist['name'] = playlist['name'][0:27] + '...'
 
         if len(playlist['desc']) > 80:
             playlist['desc'] = playlist['desc'][0:77] + '...'
@@ -119,14 +122,15 @@ def results():
     if request.method == 'POST':
         checks = request.form.getlist('checks')
         session['checks'] = checks.copy()
+        session['results'] = True
         print(checks, flush=True)
         sp = spotipy.Spotify(auth=session['token']['access_token'])
 
         tracks = []
         if 'library' in checks:
             library = functions2.get_all_track_features_from_playlists('library',
-                                                                        sp,
-                                                                        'GB')
+                                                                       sp,
+                                                                       'GB')
             tracks.extend(library)
             checks.remove('library')
 
@@ -134,6 +138,7 @@ def results():
         if len(checks) > 0:
             tmp = functions2.get_all_track_features_from_playlists(checks, sp, 'GB')
             tracks.extend(tmp)
+
 
         clean_tracks = analysis.clean_track_features(tracks)
         clustered_tracks = analysis.cluster_songs(clean_tracks)
@@ -166,6 +171,7 @@ def chart_test():
     playlists = analysis.get_pca_chart_vals(data)
 
     return render_template('chart_test.html', playlists=playlists)
+
 
 @app.route('/about')
 def about():
