@@ -9,6 +9,8 @@ from sklearn.metrics import silhouette_samples
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
+import functions2
+
 
 def clean_track_features(track_list):
     """Data cleaning and feature extraction of spotify tracks"""
@@ -82,12 +84,12 @@ def cluster_songs(songs_df):
             'artist_indie', 'artist_rock', 'artist_electro', 'artist_randb',
             'artist_techno', 'artist_country']
 
-    NO_SONGS = songs_df.shape[0]
+    # NO_SONGS = songs_df.shape[0]
 
-    if NO_SONGS < 500:
-        MIN_SONGS = int(NO_SONGS * 0.05)
-    else:
-        MIN_SONGS = 50
+    # if NO_SONGS < 500:
+    #     MIN_SONGS = int(NO_SONGS * 0.05)
+    # else:
+    #     MIN_SONGS = 50
 
     anl_df = songs_df.loc[:, COLS]
 
@@ -181,7 +183,7 @@ def get_pca_chart_vals(songs_df):
 
 def get_ai_playlists(songs_df):
     """Function to convert clustering results DF to sorted playlists in dictionary format"""
-
+    # pylint: disable-msg=too-many-locals
     COLS = ['img', 'track_name', 'preview_url', 'artist_name']
 
     # We want to show the songs that have a preview URL first
@@ -195,15 +197,51 @@ def get_ai_playlists(songs_df):
     for cluster in songs_df['cluster'].unique():
         tmp = songs_df.loc[songs_df['cluster'] == cluster]
 
+        most_sim = 'songs'
+        sim_val = 0
+
         avg_score = tmp['sample_score'].mean()
         no_tracks = tmp.shape[0]
-        avg_pop = tmp['track_popularity'].mean()
+
+        avg_pop = int(tmp['track_popularity'].mean()) / 10
+
         avg_year = int(tmp['release_year'].astype('int').mean())
-        avg_energy = tmp['energy'].mean() * 100
-        avg_dance = tmp['danceability'].mean() * 100
-        avg_inst = tmp['instrumentalness'].mean() * 100
-        avg_tempo = tmp['tempo'].mean()
-        avg_happi = tmp['valence'].mean() * 100
+
+        avg_energy = int(tmp['energy'].mean() * 100)
+        if avg_energy > sim_val:
+            most_sim = 'High Energy'
+            sim_val = avg_energy
+
+        avg_dance = int(tmp['danceability'].mean() * 100)
+        if avg_dance > sim_val:
+            most_sim = 'Dancey'
+            sim_val = avg_dance
+
+        avg_inst = int(tmp['instrumentalness'].mean() * 100)
+        if avg_inst > sim_val:
+            most_sim = 'Instrumental'
+            sim_val = avg_inst
+
+        avg_tempo = int(tmp['tempo'].mean())
+
+
+        avg_happi = int(tmp['valence'].mean() * 100)
+        if avg_happi > sim_val:
+            most_sim = 'Happy'
+            sim_val = avg_happi
+
+        genres = ['artist_jazz', 'artist_pop', 'artist_indie', 'artist_rock',
+                  'artist_electro', 'artist_randb', 'artist_techno', 'artist_country']
+
+        best_genre = ''
+        amt = 0
+        for genre in genres:
+            tmp2 = tmp[genre].sum()
+            if tmp2 > amt:
+                amt = tmp2
+                best_genre = genre.split('_')[1].capitalize()
+
+
 
         tmp = tmp.loc[:, COLS]
 
@@ -217,8 +255,19 @@ def get_ai_playlists(songs_df):
             'avg_inst': avg_inst,
             'avg_tempo': avg_tempo,
             'avg_happi': avg_happi,
+            'avg_year': avg_year,
+            'genre': best_genre,
         }
+
+        ai_playlist[cluster]['description']['name'] = functions2.get_play_name()
+        play_cover = functions2.get_image_url(
+            query=ai_playlist[cluster]['description']['name'])
+        ai_playlist[cluster]['description']['img'] = play_cover
+        ai_playlist[cluster]['description']['most_sim'] = most_sim
+
         ai_playlist[cluster]['songs'] = tmp.to_dict('r')
+
+        print(ai_playlist[cluster]['description']['name'], flush=True)
 
     return ai_playlist
 
@@ -226,10 +275,11 @@ def get_ai_playlists(songs_df):
 def set_elements(no_clusters):
     """Function to define the pointStyle for chart.js based on number of clusters in total"""
 
-    elements = ['circle', 'circle', 'circle',  'circle',
+    elements = ['circle', 'circle', 'circle', 'circle',
                 'circle', 'circle', 'circle', 'circle', 'circle']
-    cols = ['rgba(107,0,0, 0.7)', 'rgba(0,64,64, 0.7)', 'rgba(0,86,0, 0.7)', 'rgba(212,28,28, 0.7)',
-            'rgba(17,127,127, 0.7)', 'rgba(22,169,22, 0.7)', 'rgba(212,111,28, 0.7)', 'rgba(9,140,9, 0.7)']
+    cols = ['rgba(107,0,0, 0.7)', 'rgba(0,64,64, 0.7)', 'rgba(0,86,0, 0.7)',
+            'rgba(212,28,28, 0.7)', 'rgba(17,127,127, 0.7)', 'rgba(22,169,22, 0.7)',
+            'rgba(212,111,28, 0.7)', 'rgba(9,140,9, 0.7)']
 
     all_elements = []
     all_cols = []

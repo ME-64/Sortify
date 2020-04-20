@@ -82,7 +82,7 @@ def callback():
 
 @app.route('/selection', methods=['GET'])
 def selection():
-    if session['results'] == True:
+    if session['results'] is True:
         redirect(url_for('home'))
 
     sp = spotipy.Spotify(auth=session['token']['access_token'])
@@ -108,7 +108,6 @@ def selection():
     img = details['image']
     # session['country'] = details['country']
 
-    library_tracks = 231
     library_tracks = functions2.get_user_library_song_count(sp)
     return render_template('selection_new.html',
                            playlists=playlists,
@@ -122,7 +121,6 @@ def results():
     if request.method == 'POST':
         checks = request.form.getlist('checks')
         session['checks'] = checks.copy()
-        session['results'] = True
         print(checks, flush=True)
         sp = spotipy.Spotify(auth=session['token']['access_token'])
 
@@ -155,6 +153,8 @@ def results():
     details = functions2.get_user_information(sp)
 
     img = details['image']
+
+    session['results'] = True
 
     return render_template('results_new.html',
                            no_clusters=no_clusters,

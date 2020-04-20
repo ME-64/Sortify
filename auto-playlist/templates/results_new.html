@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block head %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 {% endblock%}
@@ -16,72 +16,125 @@
 <div class="container-fluid mt-4">
     <div class="w3-cell w3-container w3-responsive w3-center w3-margin-bottom" style="max-width: 1000px;">
         <div class="w3-light-gray w3-padding w3-medium w3-round-xlarge">
-            <b>The results are in!</b> <br> We looked at 31 different attributes for each song you gave us. <br> <br> It looks like it makes sense to split your songs into {{ no_clusters }} playlists. <br> <br> Before we dive into the playlists, here's
-            some general stats about your music taste. <br> <br> Your favourite genre is: <br> X, Y, and Z seem to be your favourite artists
-            <div style="min-height:500px;">
-          <canvas id="myChart1"></canvas>
-            </div>
+            <b>The results are in!</b> <br> We looked at 31 different attributes for each song you gave us. <br> <br> It
+            looks like it makes sense to split your songs into {{ no_clusters }} playlists. <br> <br> Before we dive
+            into the playlists, here's
+            some general stats about your music taste. <br> <br> Your favourite genre is: <br> X, Y, and Z seem to be
+            your favourite artists
+            <!-- <div style="min-height:500px;"> -->
+            <!--     <canvas id="myChart1"></canvas> -->
+            <!-- </div> -->
         </div>
     </div>
 </div>
 
-<div class="border-top ml-0 mr-0 mt-3 mb-3 container-fluid"></div>
+<div class="border-top ml-0 mr-0 mt-3 mb-3 container-fluid align-content-center"></div>
 
 {% for numb, playlist in ai_playlists.items() %}
-<div class="card mb-4">
-    <div class="card-header">
-        <div class="row justify-content-center">
-            <div class="col-sm-5 align-self-center">
-                <button type="button" class="btn btn-link container-fluid text-left" data-toggle="collapse" data-target="#numb{{ numb }}" aria-controls="numb{{ numb }}" aria-expanded="false" style="max-width:600px">
-                        AI Playlist: {{ numb }}
-                </button>
+<div class="card mb-1 border-0 mx-auto" style="max-width: 600px;">
+    <div class="card-header p-4 m-4 border-0" style="max-width: 600px;">
+        <div class="row justify-content-center align-self-center">
+            <div class="col-sm-3 align-self-center">
+                <img src="{{ playlist['description']['img'] }}" alt="playlistimg" width="64px" height="64px" class="rounded"/>
             </div>
-            <div class="col-sm-5 align-self-center">
-                {{ playlist['description']['no_tracks'] }} songs
+            <div class="col-sm-7 align-self-center justify-content-start">
+                <button type="button" class="btn btn-lg container text-left display-3" data-toggle="collapse"
+                    data-target="#numb{{ numb }}" aria-controls="numb{{ numb }}" aria-expanded="false"
+                    style="max-width:800px; vertical-align:middle;">
+                <!-- <i class="fas fa-caret-down fa-3x text-secondary text-center mr-1"></i> -->
+                <span class="text-primary align-text-middle align-middle"> {{ playlist['description']['name'] }} </span>
+                </button>
             </div>
             <div class="col-sm-2 align-self-center">
                 <div data-toggle="buttons">
                     <label class="btn" name="saveplaylists" type="button">
-                        <input id="test" value="test" type="checkbox" data-toggle="button" name="saveplaylists" style="display:none;" autocomplete="off">
+                        <input id="test" value="test" type="checkbox" data-toggle="button" name="saveplaylists"
+                            style="display:none;" autocomplete="off">
                         Include
                     </label>
                 </div>
             </div>
         </div>
+        <!-- <div class="row justify-content-center"> -->
+            <!-- <div class="col-sm-5 align-self-center"> -->
+            <!--     {{ playlist['description']['no_tracks'] }} songs -->
+            <!-- </div> -->
+        <!-- </div> -->
     </div>
-
-   <!-- <label class="btn container-fluid p-0 m-1" name="checks" type="button">
-        <input id="{{ playlist['playlist_uri'] }}" value="{{ playlist['playlist_uri'] }}" type="checkbox"
-            data-toggle="button" name="checks" style="display: none;" autocomplete="off"> -->
-
-
-
 
 
     <div id="numb{{ numb }}" class="collapse">
         <div class="card-body">
             <!-- INSERT playlist analytics here -->
-            <ul class="list-group border rounded" style="max-height:600px; overflow:auto;">
-                {% for song in playlist['songs'] %}
-                <li class="list-group-item">
-                    <div class="row justify-content-center text-center text-md-left">
-                        <div class="col-sm-4 col-md-2 align-self-center p-1">
-                            <img src="{{ song['img'] }}" alt="Playlist Image" class="rounded img-fluid"
-                                style="width: 30px;height: 30px;">
+            <div class="container mb-4">
+                <div class="row">
+                    <div class="col-xs-3 m-1">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body bg-primary">
+                                <h3 class="">{{ playlist['description']['avg_year'] }}</h4>
+                                <p class="mb-0">average release year</p>
+                            </div>
                         </div>
-                        <div class="col-sm-8 col-md-4 align-self-center p-1 text-dark">
-                            {{ song['track_name'] }} - {{ song['artist_name']}}
-                        </div>
-                        <div>
-                            <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" preload="none" onplay="pauseOthers(this);"></audio>
-                            <i class="fas fa-volume-up" id="{{ song['preview_url'] }}-btn" onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true" style="cursor:pointer;"></i>
-                        </div>
-
                     </div>
-                </li>
-                {% endfor %}
-            </ul>
+                    <div class="col-xs-3 m-1">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body bg-primary">
+                                <h3 class="">{{ playlist['description']['avg_energy'] }}</h4>
+                                <p class="mb-0">Energy level</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 m-1">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body bg-secondary">
+                                <h3 class="">{{ playlist['description']['no_tracks'] }}</h4>
+                                <p class="mb-0">songs in playlist</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 m-1">
+                        <div class="card bg-success text-white">
+                            <div class="card-body bg-success">
+                                <h3 class="">{{ playlist['description']['avg_tempo'] }}</h4>
+                                <p class="mb-0">Avg BPM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 m-1">
+                        <div class="card bg-success text-white">
+                            <div class="card-body bg-success">
+                                <h3 class="">{{ playlist['description']['avg_pop'] }}/10</h4>
+                                <p class="mb-0">Song popularity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="row justify-content-center">
+                <ul class="list-group border rounded" style="max-height:600px; overflow:auto;">
+                    {% for song in playlist['songs'] %}
+                    <li class="list-group-item">
+                        <div class="row justify-content-start">
+                            <div class = "col-xs-3 align-self-center">
+                                <audio src="{{ song['preview_url'] }}" id="{{ song['preview_url'] }}" preload="none"
+                                    onplay="pauseOthers(this);"></audio>
+                                <i class="fas fa-volume-up" id="{{ song['preview_url'] }}-btn"
+                                    onclick="playPause('{{ song['preview_url'] }}', this)" aria-hidden="true"
+                                    style="cursor:pointer;"></i>
+                            </div>
+                            <div class="col-xs-3 p-1">
+                                <img src="{{ song['img'] }}" alt="Playlist Image" class="rounded img-fluid"
+                                    style="width: 30px;height: 30px;">
+                            </div>
+                            <div class="col-xs-6 p-1 text-dark text-left" style="overflow: hidden; white-space:nowrap; text-overflow:ellipsis; width:35vw;">
+                                {{ song['track_name'] }} - {{ song['artist_name']}}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -90,14 +143,12 @@
 
 
 <script>
-    $('[data-toggle="buttons"] .btn').on('click', function() {
+    $('[data-toggle="buttons"] .btn').on('click', function () {
         // toggle style
         $(this).toggleClass('btn-grey active');
-
         // toggle checkbox
         var $chk = $(this).find('[type=checkbox]');
         $chk.prop('checked', !$chk.prop('checked'));
-
         return false;
     });
 
@@ -106,82 +157,6 @@
         $('#formValues').html(($('form').serialize()));
         e.preventDefault();
     }); */
-</script>
-
-
-<script>
-    function pauseOthers(ele) {
-        $("audio").not(ele).each(function (index, audio) {
-            audio.pause();
-        });
-    }
-    
-var ctx1 = document.getElementById('myChart1').getContext('2d');
-var scatterChart1 = new Chart(ctx1, {
-  type: 'scatter',
-  data: {
-    labels: {
-          {% for numb, cluster in chart_data.items() %}
-    '{{ numb }}':
-        [{% for track in cluster %}
-        '{{ track['track_name'] }} by {{track['artist_name']}}',
-      {% endfor %} ],
-      {% endfor %}
-    },
-    datasets: [
-        
-        {% for numb, cluster in chart_data.items() %}
-            {label: '{{ numb }}',
-            backgroundColor: '{{ cluster[0]['backgroundColor'] }}',
-            pointStyle: '{{ cluster[0]['pointStyle'] }}',
-            pointHoverRadius: 8,
-            pointHitRadius: 4,
-            pointRadius:4,
-            data: [
-                {% for track in cluster %}
-                {
-                 x: {{ track['PCA_1'] }},
-                 y: {{ track['PCA_2'] }}
-                },
-                {% endfor %}
-            ]},
-        {% endfor %}
-        ]},
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        type: 'linear',
-        position: 'bottom',
-        gridLines: {display:true, drawBorder:true, drawOnChartArea:false, drawTicks:false},
-        ticks: {padding: 8},
-        scaleLabel: {display:true, labelString:'Principle Component 1'}
-      }],
-      yAxes: [{
-          type: 'linear',
-          position: 'left',
-          gridLines: {display:true, drawBorder:true, drawOnChartArea:false, drawTicks:false},
-          ticks: {padding: 8},
-          scaleLabel: {display:true, labelString:'Principle Component 2'}
-      }]
-    },
-    title: {display: true, text: '2-Dimensional Visualiation of your Library'},
-        legend: {display:true, position: 'top', labels: {usePointStyle:true}},
-            
-    tooltips: {
-        callbacks: {
-            label: function(tooltipItem, data) {
-                var label = data.labels[tooltipItem.datasetIndex][tooltipItem.index];
-                return label
-            },
-        },
-        backgroundColor: 'rgba(255,255,255,1)',
-        bodyFontColor: 'rgba(150,150,150,1)',
-        displayColors: false,
-    },
-  }
-});
 </script>
 
 {% endblock %}

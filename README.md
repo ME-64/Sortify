@@ -3,6 +3,17 @@
 
 *Sorify utilises unsupervised machine learning techniques to sort your music library for you*
 
+
+
+### Tomorrow
+----------------
+
+- Basic spinner / loader while algorithm loads
+- Decide on concretely on approach to tweaks and clustering
+- Look at best way to add additional songs to the playlists
+
+
+
 ### Todo Per Page
 ----------------
 
@@ -20,7 +31,7 @@
 - [X] Make the song names "..." change with the width of the container
 - [X] Add the real user image where applicable to the leftside of title bar.
 - [ ] Add a description of the limitations on min and max songs
-- [ ] Give them the option to include / exclude their library
+- [X] Give them the option to include / exclude their library
 - [ ] Sort the playlists owned by the current user first
 - [ ] *Tweaks Section*
   - [ ] Give them the option to sprinkle in additional songs we think they might like
@@ -30,6 +41,7 @@
   - [X] Make the button cleaner to look at
   - [ ] Give them a progress bar as the button loads
   - [ ] Give them the count of the number of songs currently selected
+  - [ ] Fix issue where not all showing up
 
 **Results Page**
 - [X] Remove user icon on small screen viewport
@@ -37,12 +49,9 @@
 - [ ] "We found X unique playlists from your music collection"
 - [ ] Section at the top describing overall trends about someone's music library
 - [ ] *Top Charts*
-    - [ ] Remove cross and start from element selection.
-    - [ ] Mix up the colour - element combination, rather than linear
-    - [ ] Add breakdown by Artist Genre Pie Chart
-    - [ ] Add total song count
-    - [ ] Add most included genre
-- [ ] Chart showing the seperation of the songs into the playlists (3D perhaps?)
+    - [X] Remove cross and start from element selection.
+    - [ ] Make Chart nice
+    - [ ] Center chart and put in box
 - [ ] Playlist Name better format, and as an input box that can be changed
 - [ ] songs moved to the left and with general attributes about playlist
 - [ ] Include button goes to TICK or CROSS

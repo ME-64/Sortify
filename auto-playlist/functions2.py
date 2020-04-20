@@ -1,4 +1,9 @@
+import random
 import re
+
+import requests
+
+import name_gen
 
 
 def current_user_saved_tracks(self, limit=20, offset=0, market=None):
@@ -320,3 +325,31 @@ def remove_html_tags(text):
     """Remove html tags from a string"""
     clean = re.compile('<.*?>')
     return re.sub(clean, '', text)
+
+
+
+def get_image_url(query):
+    """Get an image from unsplash"""
+    access_key = 'xHH2-pjbPYRwAYLjJ1-1SpdduOIvOd20F_ZR8NLAv_k'
+    url = 'https://api.unsplash.com/photos/random/?'
+    orientation = 'squarish'
+    req_url = (url + 'client_id=' + access_key +
+               '&orientation=' + orientation +
+               '&query=' + query.replace(' ', '%20'))
+
+    req = requests.get(req_url)
+
+    if req.status_code == 200:
+        req = req.json()
+        photo_link = req['urls']['regular']
+        # creator = req['user']['name']
+        # creator_link = req['user']['links']['html']
+        return photo_link # , creator, creator_link
+
+    # pylint: disable=line-too-long
+    return "https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/record_recorder_stop-2-512.png"
+
+
+def get_play_name():
+    name = random.choice(name_gen.NAMES)
+    return name
